@@ -3,9 +3,16 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-export const auth = getAuth();
+// Safety check for deployment environments
+const hasConfig = firebaseConfig && (firebaseConfig as any).apiKey;
+
+if (!hasConfig) {
+  console.warn("Firebase configuration is missing or invalid. Check firebase-applet-config.json");
+}
+
+const app = hasConfig ? initializeApp(firebaseConfig) : null;
+export const db = (app && hasConfig) ? getFirestore(app, (firebaseConfig as any).firestoreDatabaseId) : null as any;
+export const auth = app ? getAuth(app) : null as any;
 
 export enum OperationType {
   CREATE = 'create',
