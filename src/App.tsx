@@ -13,6 +13,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Admin from './components/Admin';
+import ProductDetail from './components/ProductDetail';
 
 function MainSite() {
   return (
@@ -21,7 +22,6 @@ function MainSite() {
       <main>
         <Hero />
         <Store />
-        <AffiliateSection />
         <About />
         <Contact />
         <Blog />
@@ -38,6 +38,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<MainSite />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </div>
     </Router>

@@ -249,7 +249,7 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Description</label>
+                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Product Description</label>
                   <textarea 
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
@@ -259,7 +259,7 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Image URL</label>
+                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Thumbnail URL</label>
                   <input 
                     type="text"
                     value={formData.image}
@@ -270,18 +270,19 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Affiliate Link</label>
+                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Product Download/Buy Link</label>
                   <input 
                     type="text"
                     value={formData.affiliateLink}
                     onChange={(e) => setFormData({...formData, affiliateLink: e.target.value})}
                     className="w-full bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
+                    placeholder="Link to file or payment stripe"
                   />
                 </div>
 
                 <div className="p-4 bg-brand-gold/5 border border-brand-gold/10 rounded-sm">
                   <label className="block text-[9px] uppercase font-bold tracking-widest text-brand-gold mb-2 flex items-center gap-2">
-                    <Sparkles size={10} /> 3D Mockup Prompt
+                    <Sparkles size={10} /> AI Visual Blueprint (Mockup Prompt)
                   </label>
                   <textarea 
                     value={formData.mockupPrompt}
@@ -296,7 +297,7 @@ export default function Admin() {
                   disabled={isLoading}
                   className="w-full bg-slate-900 text-white py-4 rounded-sm font-bold uppercase text-[10px] tracking-[0.3em] flex items-center justify-center gap-3 disabled:opacity-50 hover:bg-brand-gold transition-all"
                 >
-                  {isLoading ? <Loader2 className="animate-spin" size={16} /> : 'Deploy Asset'}
+                  {isLoading ? <Loader2 className="animate-spin" size={16} /> : 'Finalize & Deploy Product'}
                 </button>
               </form>
             </div>
