@@ -1,0 +1,29 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product Entity",
+      "description": "Represents a store item with e-commerce metadata and AI descriptions.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The name of the product" },
+        "description": { "type": "string", "description": "SEO optimized description" },
+        "price": { "type": "number", "description": "Price in USD" },
+        "category": { "type": "string", "description": "Product category" },
+        "image": { "type": "string", "description": "Main product image URL" },
+        "badge": { "type": "string", "description": "Promotional badge (e.g., 'New', 'Popular')" },
+        "affiliateLink": { "type": "string", "description": "Affiliate referral link" },
+        "features": { "type": "array", "items": { "type": "string" }, "description": "Key feature highlights" },
+        "mockupPrompt": { "type": "string", "description": "DALL-E/Midjourney prompt for 3D mockup" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "price", "category", "image"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of available digital assets and templates."
+    }
+  }
+}
