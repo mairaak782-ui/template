@@ -9,6 +9,7 @@
         "description": { "type": "string", "description": "SEO optimized description" },
         "price": { "type": "number", "description": "Price in USD" },
         "category": { "type": "string", "description": "Product category" },
+        "type": { "type": "string", "enum": ["digital", "affiliate"], "description": "Whether this is an owned digital asset or an affiliate recommendation" },
         "image": { "type": "string", "description": "Main product image URL" },
         "badge": { "type": "string", "description": "Promotional badge (e.g., 'New', 'Popular')" },
         "affiliateLink": { "type": "string", "description": "Affiliate referral link" },

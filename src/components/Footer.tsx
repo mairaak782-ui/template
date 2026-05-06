@@ -76,10 +76,10 @@ export default function Footer() {
 
         <div className="pt-16 flex flex-col md:flex-row justify-between items-center gap-12 text-slate-400">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold tracking-tighter text-slate-900">THE<span className="text-brand-gold">PROMPT</span></span>
+            <span className="text-2xl font-bold tracking-tighter text-slate-900">MODERN<span className="text-brand-gold font-serif italic ml-1">ARCHIVE</span></span>
           </div>
           <div className="text-[9px] uppercase tracking-[0.5em] text-slate-300 font-bold border-x border-slate-200 px-8 py-2">
-            &copy; {new Date().getFullYear()} THE PROMPT COLLECTIVE. SYSTEM_CORE_V4
+            &copy; {new Date().getFullYear()} MODERN ARCHIVE ECOSYSTEM. V2.0
           </div>
           <div className="flex items-center gap-10">
             <motion.a whileHover={{ color: "#D4AF37" }} href="/admin" className="text-[9px] uppercase tracking-widest font-bold transition-colors">Admin</motion.a>

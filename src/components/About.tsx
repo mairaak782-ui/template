@@ -30,9 +30,10 @@ export default function About() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-5xl font-serif italic text-slate-900 mb-8 leading-tight">Crafting the systems <br />for high performance.</h2>
+              <div className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-gold mb-4">Our Story</div>
+              <h2 className="text-4xl md:text-5xl font-serif italic text-slate-900 mb-8 leading-tight">Elite Designs <br />Built by <span className="text-brand-gold not-italic font-sans font-black uppercase">Creators.</span></h2>
               <p className="text-slate-500 text-base mb-10 font-light leading-relaxed">
-                We believe in the power of a single, well-executed choice. Our systems are built for creators who demand precision, minimalist aesthetics, and functional durability.
+                Founded on the principle that premium design should be accessible to everyone, Modern Archive curates high-end digital assets that save you hundreds of hours in development.
               </p>
 
               <div className="grid gap-10">

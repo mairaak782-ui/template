@@ -3,10 +3,11 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const navLinks = [
-  { name: 'Store', href: '#store' },
+  { name: 'Templates', href: '#templates' },
+  { name: 'Cards', href: '#cards' },
+  { name: 'Tools', href: '#affiliate' },
+  { name: 'Blog', href: '#blog' },
   { name: 'Ethos', href: '#about' },
-  { name: 'Journal', href: '#blog' },
-  { name: 'Contact', href: '#contact-form' },
 ];
 
 export default function Navbar() {
@@ -33,8 +34,8 @@ export default function Navbar() {
           whileHover={{ scale: 1.05 }}
           className="text-2xl font-bold tracking-tighter flex items-center gap-1 group"
         >
-          <span className="text-slate-900 font-sans">THE</span>
-          <span className="text-brand-gold font-sans group-hover:text-brand-gold-light transition-all">PROMPT</span>
+          <span className="text-slate-900 font-sans tracking-tight">MODERN</span>
+          <span className="text-brand-gold font-serif italic mx-1">ARCHIVE</span>
         </motion.a>
 
         {/* Desktop Nav */}

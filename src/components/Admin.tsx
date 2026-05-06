@@ -14,18 +14,25 @@ export default function Admin() {
   const [newProductInput, setNewProductInput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
+  const [activeTab, setActiveTab] = useState<'digital' | 'affiliate'>('digital');
+
   // Form State
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     price: '',
     category: 'template',
+    type: 'digital',
     image: '',
     badge: '',
     affiliateLink: '',
     features: [] as string[],
     mockupPrompt: ''
   });
+
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, type: activeTab }));
+  }, [activeTab]);
 
   useEffect(() => {
     const isAuth = localStorage.getItem('admin_access') === 'true';
@@ -139,8 +146,8 @@ export default function Admin() {
           className="bg-white p-12 rounded-sm shadow-2xl border border-slate-100 max-w-md w-full"
         >
           <div className="flex items-center gap-2 mb-8 justify-center">
-            <span className="text-2xl font-bold tracking-tighter text-slate-900 font-sans">THE<span className="text-brand-gold">PROMPT</span></span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300 ml-2">Admin Panel</span>
+            <span className="text-2xl font-bold tracking-tighter text-slate-900 font-sans">MODERN<span className="text-brand-gold font-serif italic ml-1">ARCHIVE</span></span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300 ml-2">Console</span>
           </div>
           
           <form onSubmit={handleLogin} className="space-y-6">
@@ -199,45 +206,76 @@ export default function Admin() {
           {/* Add Product Form */}
           <div className="lg:col-span-1">
             <div className="bg-white p-8 rounded-sm shadow-xl border border-slate-100 sticky top-32">
+              <div className="flex gap-4 mb-8 p-1 bg-slate-50 rounded-sm border border-slate-100">
+                <button 
+                  onClick={() => setActiveTab('digital')}
+                  className={`flex-1 py-3 text-[9px] uppercase font-bold tracking-widest transition-all rounded-sm ${activeTab === 'digital' ? 'bg-white shadow-sm text-brand-gold' : 'text-slate-400'}`}
+                >
+                  Digital Asset
+                </button>
+                <button 
+                  onClick={() => setActiveTab('affiliate')}
+                  className={`flex-1 py-3 text-[9px] uppercase font-bold tracking-widest transition-all rounded-sm ${activeTab === 'affiliate' ? 'bg-white shadow-sm text-brand-gold' : 'text-slate-400'}`}
+                >
+                  Affiliate
+                </button>
+              </div>
+
               <h2 className="text-xl font-bold mb-8 uppercase tracking-widest flex items-center gap-3">
-                <Plus size={18} className="text-brand-gold" /> Add New Asset
+                {activeTab === 'digital' ? <Plus size={18} className="text-brand-gold" /> : <TrendingUp size={18} className="text-brand-gold" />}
+                Add New {activeTab === 'digital' ? 'Asset' : 'Recommendation'}
               </h2>
 
               <div className="mb-10 p-6 bg-slate-50 border border-slate-100 rounded-sm">
-                <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-slate-400 mb-4">AI Automation</p>
+                <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-slate-400 mb-4">Quick AI Fill</p>
                 <div className="flex gap-2">
                   <input 
                     type="text"
                     value={newProductInput}
                     onChange={(e) => setNewProductInput(e.target.value)}
-                    placeholder="Product URL or Name"
+                    placeholder={activeTab === 'digital' ? "Template Name/Role" : "Product URL/Brand"}
                     className="flex-1 bg-white border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
                   />
                   <button 
                     onClick={handleGenerate}
                     disabled={isGenerating || !newProductInput}
-                    className="bg-brand-gold text-white p-3 rounded-sm disabled:opacity-50 hover:brightness-110 transition-all"
+                    className="bg-brand-gold text-white p-3 rounded-sm disabled:opacity-50 hover:brightness-110 transition-all font-bold text-[10px]"
                   >
-                    {isGenerating ? <Loader2 className="animate-spin" size={18} /> : <Sparkles size={18} />}
+                    {isGenerating ? <Loader2 className="animate-spin" size={18} /> : 'GENERATE'}
                   </button>
                 </div>
-                <p className="text-[9px] text-slate-400 mt-3 italic">Generate copywriting & mockup prompts with AI</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Title</label>
-                    <input 
-                      type="text"
-                      value={formData.title}
-                      onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Category</label>
+                    <select 
+                      value={formData.category}
+                      onChange={(e) => setFormData({...formData, category: e.target.value})}
                       className="w-full bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
                       required
-                    />
+                    >
+                      <option value="">Select Category</option>
+                      <optgroup label="Templates">
+                        <option value="Template: Portfolio">Portfolio Template</option>
+                        <option value="Template: Business">Business Template</option>
+                        <option value="Template: Landing Page">Landing Page</option>
+                      </optgroup>
+                      <optgroup label="Cards">
+                        <option value="Card: Nikkah">Nikkah Design</option>
+                        <option value="Card: Birthday">Birthday Design</option>
+                        <option value="Card: Invitation">Invitation Design</option>
+                      </optgroup>
+                      <optgroup label="Tools (Affiliate)">
+                        <option value="Tool: Hosting">Web Hosting</option>
+                        <option value="Tool: Design">Design Software</option>
+                        <option value="Tool: Development">Dev Tools</option>
+                      </optgroup>
+                    </select>
                   </div>
                   <div>
-                    <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Price</label>
+                    <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Price (USD)</label>
                     <input 
                       type="number"
                       value={formData.price}
@@ -249,7 +287,18 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Product Description</label>
+                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Product Title</label>
+                  <input 
+                    type="text"
+                    value={formData.title}
+                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Description</label>
                   <textarea 
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
@@ -259,45 +308,50 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Thumbnail URL</label>
+                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Header/Visual Image URL</label>
                   <input 
                     type="text"
                     value={formData.image}
                     onChange={(e) => setFormData({...formData, image: e.target.value})}
                     className="w-full bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
+                    placeholder="Unsplash image URL preferred"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Product Download/Buy Link</label>
+                  <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">
+                    {activeTab === 'digital' ? 'Download/Access Link' : 'Affiliate (Amazon/Shopify) Link'}
+                  </label>
                   <input 
                     type="text"
                     value={formData.affiliateLink}
                     onChange={(e) => setFormData({...formData, affiliateLink: e.target.value})}
                     className="w-full bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
-                    placeholder="Link to file or payment stripe"
+                    placeholder={activeTab === 'digital' ? 'Link to your file' : 'Referral product link'}
+                    required
                   />
                 </div>
 
-                <div className="p-4 bg-brand-gold/5 border border-brand-gold/10 rounded-sm">
-                  <label className="block text-[9px] uppercase font-bold tracking-widest text-brand-gold mb-2 flex items-center gap-2">
-                    <Sparkles size={10} /> AI Visual Blueprint (Mockup Prompt)
-                  </label>
-                  <textarea 
-                    value={formData.mockupPrompt}
-                    readOnly
-                    className="w-full bg-white/50 border border-slate-100 rounded-sm px-4 py-3 text-[9px] font-mono text-slate-500 focus:outline-none min-h-[80px]"
-                  />
-                  <p className="text-[8px] text-slate-400 mt-2 italic font-light">Calculated by AI for visual consistency</p>
-                </div>
+                {activeTab === 'digital' && (
+                  <div className="p-4 bg-brand-gold/5 border border-brand-gold/10 rounded-sm">
+                    <label className="block text-[9px] uppercase font-bold tracking-widest text-brand-gold mb-2 flex items-center gap-2">
+                      <Sparkles size={10} /> 3D Visual Blueprint
+                    </label>
+                    <textarea 
+                      value={formData.mockupPrompt}
+                      readOnly
+                      className="w-full bg-white/50 border border-slate-100 rounded-sm px-4 py-3 text-[9px] font-mono text-slate-500 focus:outline-none min-h-[80px]"
+                    />
+                  </div>
+                )}
 
                 <button 
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-slate-900 text-white py-4 rounded-sm font-bold uppercase text-[10px] tracking-[0.3em] flex items-center justify-center gap-3 disabled:opacity-50 hover:bg-brand-gold transition-all"
+                  className="w-full bg-slate-900 text-white py-4 rounded-sm font-bold uppercase text-[10px] tracking-[0.3em] flex items-center justify-center gap-3 disabled:opacity-50 hover:bg-brand-gold transition-all shadow-lg"
                 >
-                  {isLoading ? <Loader2 className="animate-spin" size={16} /> : 'Finalize & Deploy Product'}
+                  {isLoading ? <Loader2 className="animate-spin" size={16} /> : `Save ${activeTab === 'digital' ? 'Asset' : 'Recommendation'}`}
                 </button>
               </form>
             </div>

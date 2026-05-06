@@ -105,12 +105,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: '2',
-    title: 'The Best Affiliate Marketing Strategies for Beginners',
-    excerpt: 'Stop guessing and start earning with these proven affiliate methods.',
+    title: 'Designing Digital Assets That Sell',
+    excerpt: 'Master the art of creating premium digital products that stand out in a crowded market.',
     date: 'May 08, 2024',
     author: 'Maira',
-    category: 'Marketing',
-    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80',
     content: 'Long content here...'
   },
   {

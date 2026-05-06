@@ -8,13 +8,14 @@ export default function Blog() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-xl">
-            <h2 className="text-4xl md:text-5xl font-serif italic text-slate-900 mb-6">Latest Insights</h2>
+            <div className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-gold mb-4">Strategic Journal</div>
+            <h2 className="text-4xl md:text-5xl font-serif italic text-slate-900 mb-6 font-medium">Insights <span className="not-italic font-sans font-black uppercase text-brand-gold">& Education.</span></h2>
             <p className="text-slate-500 text-base font-light leading-relaxed">
-              Explorations into the intersection of technology, digital assets, and high-performance business strategies.
+              Master the art of digital asset deployment. From editing HTML templates to building a high-performance design business.
             </p>
           </div>
           <button className="hidden md:flex items-center gap-3 text-[10px] uppercase font-bold tracking-[0.3em] bg-white border border-slate-200 text-slate-900 px-10 py-4 rounded-sm hover:border-brand-gold transition-all duration-300">
-            Journal Feed <ArrowRight size={16} />
+            View All Articles <ArrowRight size={16} />
           </button>
         </div>
 
