@@ -15,6 +15,8 @@ export interface Resource {
   link: string;
   image: string;
   rating: number;
+  price?: number;
+  category?: string;
 }
 
 export interface BlogPost {
@@ -88,26 +90,32 @@ export const resources: Resource[] = [
   {
     id: '1',
     title: 'Hostinger Premium',
-    description: 'The best reliable hosting for modern businesses with 99.9% uptime.',
+    description: 'High-performance cloud hosting with 99.9% uptime, unlimited SSL, and 24/7 elite support.',
     link: '#',
     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
-    rating: 5
+    rating: 5,
+    price: 2.99,
+    category: 'Hosting'
   },
   {
     id: '2',
-    title: 'Canva Pro Early Access',
-    description: 'Unlock professional designs with thousands of premium templates and AI assets.',
+    title: 'Canva Pro Elite',
+    description: 'The definitive design suite for professionals. Access millions of premium assets and AI tools.',
     link: '#',
     image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80',
-    rating: 4.9
+    rating: 4.9,
+    price: 12.99,
+    category: 'Design'
   },
   {
     id: '3',
-    title: 'Grammarly',
-    description: 'Upgrade your writing with AI-powered suggestions and clarity checks.',
+    title: 'Mercury SaaS',
+    description: 'Unified banking and financial infrastructure for high-growth startups and tech giants.',
     link: '#',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
-    rating: 4.5
+    image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=1200&q=80',
+    rating: 5,
+    price: 0,
+    category: 'Finance'
   }
 ];
 

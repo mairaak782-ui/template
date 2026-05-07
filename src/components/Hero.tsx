@@ -35,10 +35,15 @@ export default function Hero() {
   ];
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 8000);
-    return () => clearInterval(timer);
+    // Initial delay before starting the auto-play timer
+    const startTimeout = setTimeout(() => {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 8000);
+      return () => clearInterval(timer);
+    }, 2000);
+    
+    return () => clearTimeout(startTimeout);
   }, [slides.length]);
 
   const slide = slides[currentSlide];
@@ -75,6 +80,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
+              style={{ willChange: 'transform, opacity' }}
               transition={{ 
                 duration: 0.6, 
                 ease: [0.22, 1, 0.36, 1] 
@@ -95,10 +101,10 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className={`text-4xl md:text-6xl lg:text-[7rem] font-serif italic text-white leading-[0.95] md:leading-[0.85] mb-12 lg:mb-14 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
+                className={`text-3xl sm:text-4xl md:text-6xl lg:text-[7rem] font-serif italic text-white leading-[0.95] md:leading-[0.85] mb-12 lg:mb-14 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
               >
                 {slide.title.serif} <br />
-                <span className="not-italic font-sans font-black uppercase text-3xl md:text-5xl lg:text-[5.5rem] block mt-6 text-white tracking-tight">
+                <span className="not-italic font-sans font-black uppercase text-2xl sm:text-3xl md:text-5xl lg:text-[5.5rem] block mt-6 text-white tracking-tight">
                   {slide.title.bold}
                 </span>
               </motion.h1>
@@ -174,6 +180,7 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.9, x: 50 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               exit={{ opacity: 0, scale: 1.1, x: -50 }}
+              style={{ willChange: 'transform, opacity' }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
             >

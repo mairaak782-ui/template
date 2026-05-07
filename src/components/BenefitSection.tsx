@@ -44,7 +44,7 @@ export default function BenefitSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-serif italic text-slate-950 tracking-tighter"
+            className="text-3xl sm:text-5xl md:text-7xl font-serif italic text-slate-950 tracking-tighter"
           >
             Why Choose <span className="not-italic font-sans font-black uppercase text-brand-gold">Our Designs?</span>
           </motion.h2>

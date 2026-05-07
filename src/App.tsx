@@ -39,11 +39,10 @@ function MainSite() {
         ) : (
           <motion.div 
             key="content" 
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ 
-              duration: 1, 
-              ease: [0.22, 1, 0.36, 1]
+              duration: 0.4, 
             }}
             className="relative"
           >

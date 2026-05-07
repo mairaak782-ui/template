@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 interface IntroAnimationProps {
   onComplete: () => void;
+  key?: string;
 }
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
@@ -27,8 +28,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       initial={{ opacity: 1 }}
       exit={{ 
         opacity: 0,
-        y: -40,
-        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+        transition: { duration: 0.5, ease: "easeOut" }
       }}
       style={{ willChange: 'opacity, transform' }}
     >

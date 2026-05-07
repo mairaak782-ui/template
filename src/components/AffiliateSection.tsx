@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
-import { ExternalLink, Sparkles, Zap, ArrowRight, Star } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, Cpu, Globe, ArrowRight, Star, Zap } from 'lucide-react';
 import { resources as staticTools } from '../constants';
 
 export default function AffiliateSection() {
@@ -26,9 +26,7 @@ export default function AffiliateSection() {
       setAffiliateProducts(items.length > 0 ? items : staticTools);
       setIsLoading(false);
     }, (error) => {
-      // If index is missing, fallback to client-side filter for now
       if (error.message.includes('index')) {
-        console.warn("Index needed for type filtering, using fallback.");
         const fallbackQ = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
         onSnapshot(fallbackQ, (snap) => {
           const all = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -47,114 +45,154 @@ export default function AffiliateSection() {
   }, []);
 
   return (
-    <section id="affiliate" className="py-32 relative overflow-hidden">
-      {/* Multidimensional Premium Mesh Gradient */}
-      <div className="absolute inset-0 bg-slate-950 -z-20" />
-      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-brand-purple/20 blur-[150px] rounded-full animate-soft-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-brand-pink/15 blur-[150px] rounded-full animate-soft-pulse [animation-delay:3s]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] bg-blue-600/10 blur-[150px] rounded-full" />
-        
-        {/* Animated Grain/Noise Overlay for Texture */}
-        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150" />
+    <section id="affiliate" className="py-32 bg-[#030712] relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-28">
-          <div className="max-w-2xl">
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20">
+          <div className="space-y-6 max-w-3xl">
             <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-3 mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
             >
-              <div className="h-[1px] w-12 bg-linear-to-r from-brand-purple to-transparent" />
-              <span className="text-[10px] uppercase font-black tracking-[0.8em] text-brand-purple">Tech Ecosystem</span>
+              <ShieldCheck className="w-4 h-4 text-purple-400" />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-purple-200 font-bold">Curated Tech Stack</span>
             </motion.div>
-            <h2 className="text-6xl md:text-8xl font-serif italic text-white leading-[0.9] tracking-tightest">
-              The <span className="bg-linear-to-r from-brand-purple via-white to-brand-pink bg-clip-text text-transparent font-sans not-italic font-black uppercase">Professional</span> <br/>
-              <span className="text-white/40">Selection.</span>
-            </h2>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl sm:text-6xl md:text-8xl font-bold text-white leading-tight tracking-tighter"
+            >
+              The <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-white to-blue-400">Elite</span> <br />
+              Digital Arsenal<span className="text-purple-500">.</span>
+            </motion.h2>
           </div>
-          <div className="text-slate-400 text-lg font-light max-w-sm mb-2 flex flex-col gap-6 leading-relaxed">
-            <p>A hand-picked collection of software and hardware that meets our rigorous standards for digital excellence.</p>
-            <div className="flex flex-wrap gap-3">
-              <span className="px-5 py-2 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-white/50">Enterprise</span>
-              <span className="px-5 py-2 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-white/50">Performance</span>
-            </div>
-          </div>
+
+          <motion.div 
+             initial={{ opacity: 0, x: 20 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             className="lg:max-w-xs text-slate-400 border-l-2 border-purple-500/30 pl-6 py-2"
+          >
+            <p className="text-lg font-light leading-relaxed">
+              We only recommend tools that we use to build high-performance digital experiences.
+            </p>
+          </motion.div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
-          {isLoading ? (
-            [1, 2, 3].map((i) => (
-              <div key={i} className="aspect-[4/5] bg-white/5 rounded-[3rem] animate-pulse" />
-            ))
-          ) : (
-            affiliateProducts.map((product, idx) => (
-              <motion.div
-                key={product.id || idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1, duration: 0.8 }}
-                viewport={{ once: true }}
-                className="group relative flex flex-col h-full bg-linear-to-b from-white/[0.06] to-transparent backdrop-blur-3xl border border-white/10 p-10 rounded-[3.5rem] hover:border-white/20 transition-all duration-1000 hover:shadow-[0_60px_100px_-30px_rgba(0,0,0,0.6)]"
-              >
-                {/* Accent Top Bar */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/4 h-[2px] bg-linear-to-r from-transparent via-brand-purple to-transparent opacity-0 group-hover:opacity-100 group-hover:w-1/2 transition-all duration-700" />
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode='popLayout'>
+            {isLoading ? (
+              [1, 2, 3].map((i) => (
+                <div key={i} className="h-[450px] bg-white/5 rounded-[2.5rem] animate-pulse border border-white/10" />
+              ))
+            ) : (
+              affiliateProducts.map((product, idx) => (
+                <motion.div
+                  key={product.id || idx}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  style={{ willChange: 'transform, opacity' }}
+                  className="group relative h-full flex flex-col bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden hover:border-purple-500/50 transition-all duration-500"
+                >
+                  {/* Top Preview Area */}
+                  <div className="relative h-56 overflow-hidden bg-gradient-to-br from-purple-900/40 via-slate-900 to-blue-900/40 flex items-center justify-center">
+                    <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-1000 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-purple-500" />
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-soft-light" />
+                    
+                    <div className="relative z-10 w-28 h-28 rounded-[2rem] bg-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] flex items-center justify-center p-5 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-1000 border border-white/20">
+                      <img 
+                        src={product.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(product.title)}&background=8b5cf6&color=fff`} 
+                        alt={product.title} 
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
 
-                <div className="flex justify-between items-start mb-12">
-                  <div className="w-20 h-20 bg-white rounded-3xl border border-white/10 flex items-center justify-center p-4 group-hover:scale-105 group-hover:rotate-3 transition-all duration-700 shadow-2xl relative overflow-hidden">
-                    <div className="absolute inset-0 bg-linear-to-br from-brand-purple/5 to-transparent" />
-                    <img 
-                      src={product.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(product.title)}&background=8b5cf6&color=fff`} 
-                      alt={product.title} 
-                      className="w-full h-full object-contain relative z-10"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(product.title)}&background=8b5cf6&color=fff`;
-                      }}
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">
-                      {product.category || 'Architecture'}
-                    </span>
-                    <div className="flex items-center gap-1 text-brand-purple">
-                      <Star size={10} fill="currentColor" />
-                      <span className="text-[10px] font-bold">{product.rating || '4.9'}</span>
+                    {/* Category Tag */}
+                    <div className="absolute top-6 right-6">
+                       <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[9px] font-bold text-white uppercase tracking-widest">
+                        {product.category || 'Tool'}
+                       </span>
                     </div>
                   </div>
-                </div>
-                
-                <h3 className="text-3xl font-serif italic text-white mb-4 group-hover:tracking-wider transition-all duration-700">
-                  {product.title}
-                </h3>
-                
-                <p className="text-sm text-white/40 mb-12 line-clamp-3 font-light leading-relaxed">
-                  {product.description}
-                </p>
 
-                <div className="mt-auto pt-10 border-t border-white/5 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="text-[8px] text-white/20 uppercase font-black tracking-widest mb-1">MSRP / ENTRY</span>
-                    <span className="text-white font-sans font-black text-2xl tracking-tighter">
-                      {product.price ? `$${product.price}` : 'FREE'}
-                    </span>
+                  {/* Content Area */}
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                        {product.title}
+                      </h3>
+                      <div className="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-lg">
+                        <Star size={12} className="text-yellow-500 fill-yellow-500" />
+                        <span className="text-xs font-bold text-white">{product.rating || '4.9'}</span>
+                      </div>
+                    </div>
+
+                    <p className="text-slate-400 text-sm leading-relaxed mb-8 line-clamp-3">
+                      {product.description}
+                    </p>
+
+                    <div className="mt-auto flex items-center justify-between pt-6 border-t border-white/5">
+                      <div>
+                        <p className="text-[10px] text-slate-500 uppercase font-black tracking-tighter">Starting At</p>
+                        <p className="text-xl font-bold text-white">
+                          {product.price ? `$${product.price}` : 'FREE'}
+                        </p>
+                      </div>
+
+                      <motion.a 
+                        href={product.affiliateLink || product.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-black font-bold text-sm hover:bg-purple-500 hover:text-white transition-all duration-300"
+                      >
+                        Explore <ArrowUpRight size={16} />
+                      </motion.a>
+                    </div>
                   </div>
-                  <a 
-                    href={product.affiliateLink || product.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-brand-purple group-hover:border-brand-purple transition-all duration-500 overflow-hidden relative"
-                  >
-                    <ArrowRight size={20} className="group-hover:translate-x-12 absolute transition-all duration-500" />
-                    <ArrowRight size={20} className="-translate-x-12 group-hover:translate-x-0 absolute transition-all duration-500" />
-                  </a>
-                </div>
-              </motion.div>
-            ))
-          )}
+
+                  {/* Decorative corner accent */}
+                  <div className="absolute bottom-0 right-0 w-24 h-24 bg-purple-500/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                </motion.div>
+              ))
+            )}
+          </AnimatePresence>
         </div>
+
+        {/* Bottom CTA / Stats (Optional) */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-y border-white/5"
+        >
+          {[
+            { label: 'Verified Tools', val: '50+', icon: ShieldCheck },
+            { label: 'Global Users', val: '10k+', icon: Globe },
+            { label: 'Efficiency Boost', val: '40%', icon: Zap },
+            { label: 'Tech Partners', val: '24', icon: Cpu },
+          ].map((stat, i) => (
+            <div key={i} className="text-center space-y-2">
+              <stat.icon className="w-5 h-5 text-purple-500 mx-auto mb-3" />
+              <p className="text-2xl font-bold text-white">{stat.val}</p>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest">{stat.label}</p>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

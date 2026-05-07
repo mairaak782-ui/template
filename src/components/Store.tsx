@@ -66,7 +66,7 @@ export default function Store({ filterCategory, sectionId, title, subTitle }: { 
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className={`text-4xl md:text-7xl font-serif italic text-slate-950 leading-tight tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
+              className={`text-3xl sm:text-4xl md:text-7xl font-serif italic text-slate-950 leading-tight tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
             >
               {title || t('store.title')}
             </motion.h2>

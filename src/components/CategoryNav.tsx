@@ -46,7 +46,7 @@ export default function CategoryNav() {
               transition={{ delay: idx * 0.1, duration: 0.8 }}
               className="flex-1 group relative overflow-hidden rounded-[4rem] border border-slate-100 shadow-2xl shadow-slate-200/50 bg-white"
             >
-              <div className="h-full min-h-[500px] relative overflow-hidden p-10 flex flex-col">
+              <div className="h-full min-h-[400px] md:min-h-[500px] relative overflow-hidden p-8 md:p-10 flex flex-col">
                 <div className="absolute inset-0">
                   <img 
                     src={cat.image} 
@@ -62,7 +62,7 @@ export default function CategoryNav() {
                   <div className={`${cat.color} w-16 h-16 rounded-3xl flex items-center justify-center mb-8 shadow-xl border border-white/20 group-hover:scale-110 transition-transform duration-500`}>
                     {cat.icon}
                   </div>
-                  <h3 className={`text-4xl font-serif italic text-slate-950 mb-3 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>{cat.name}</h3>
+                  <h3 className={`text-3xl md:text-4xl font-serif italic text-slate-950 mb-3 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>{cat.name}</h3>
                   <p className={`text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] mb-10 leading-loose ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{cat.description}</p>
                   
                   <div className={`flex items-center gap-3 text-brand-purple font-black text-[10px] uppercase tracking-widest ${language === 'ur' ? 'flex-row-reverse font-urdu' : ''}`}>

@@ -39,7 +39,7 @@ export default function About() {
               viewport={{ once: true }}
             >
               <div className={`text-[10px] font-black uppercase tracking-[0.6em] text-brand-purple mb-8 md:mb-10 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>{t('about.tag')}</div>
-              <h2 className={`text-4xl md:text-7xl font-serif italic text-slate-950 mb-8 md:mb-12 leading-tight tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal text-5xl md:text-7xl' : ''}`}>{t('about.title')}</h2>
+              <h2 className={`text-3xl sm:text-4xl md:text-7xl font-serif italic text-slate-950 mb-8 md:mb-12 leading-tight tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal text-4xl sm:text-5xl md:text-7xl' : ''}`}>{t('about.title')}</h2>
               <p className={`text-slate-500 text-lg mb-10 md:mb-16 font-light leading-relaxed max-w-xl ${language === 'ur' ? 'font-urdu' : ''}`}>
                 {t('about.desc')}
               </p>
