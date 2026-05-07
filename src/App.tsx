@@ -29,57 +29,52 @@ import IntroAnimation from './components/IntroAnimation';
 
 function MainSite() {
   const { language } = useLanguage();
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return !sessionStorage.getItem('intro_played');
-    }
-    return true;
-  });
-
-  const handleComplete = () => {
-    sessionStorage.setItem('intro_played', 'true');
-    setIsLoading(false);
-  };
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading ? (
-        <IntroAnimation key="intro" onComplete={handleComplete} />
-      ) : (
-        <motion.div 
-          key="content" 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
-          className="relative"
-        >
-          <AnimatedBackground />
-          <Navbar />
-          <main>
-            <Hero />
-            <CategoryNav />
-            <CollectionTicker />
-            <About />
-            
-            <Store 
-              sectionId="templates" 
-              title={language === 'en' ? 'Digital Templates' : 'ڈیجیٹل ٹیمپلیٹس'} 
-              subTitle={language === 'en' ? 'High-performance website architectures for portfolios, businesses, and landing pages.' : 'پورٹ فولیوز اور کاروبار کے لیے اعلیٰ کارکردگی والے ویب سائٹ ڈیزائن۔'}
-              filterCategory="template"
-            />
+    <div className="relative min-h-screen bg-white">
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <IntroAnimation key="intro" onComplete={() => setIsLoading(false)} />
+        ) : (
+          <motion.div 
+            key="content" 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ 
+              duration: 1, 
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="relative"
+          >
+            <AnimatedBackground />
+            <Navbar />
+            <main>
+              <Hero />
+              <CategoryNav />
+              <CollectionTicker />
+              <About />
+              
+              <Store 
+                sectionId="templates" 
+                title={language === 'en' ? 'Digital Templates' : 'ڈیجیٹل ٹیمپلیٹس'} 
+                subTitle={language === 'en' ? 'High-performance website architectures for portfolios, businesses, and landing pages.' : 'پورٹ فولیوز اور کاروبار کے لیے اعلیٰ کارکردگی والے ویب سائٹ ڈیزائن۔'}
+                filterCategory="template"
+              />
 
-            <BenefitSection />
+              <BenefitSection />
 
-            <AffiliateSection />
-            <FeedbackSection />
-            <CTASection />
-            <Blog />
-            <Contact />
-          </main>
-          <Footer />
-        </motion.div>
-      )}
-    </AnimatePresence>
+              <AffiliateSection />
+              <FeedbackSection />
+              <CTASection />
+              <Blog />
+              <Contact />
+            </main>
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 

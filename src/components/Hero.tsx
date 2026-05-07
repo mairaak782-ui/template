@@ -37,7 +37,7 @@ export default function Hero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
+    }, 8000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
@@ -52,7 +52,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: "linear" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             className="absolute inset-0 z-0 pointer-events-none"
           >
             <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-slate-950/40 to-slate-950 z-10" />
@@ -72,12 +72,12 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
               transition={{ 
-                duration: 0.4, 
-                ease: "easeOut"
+                duration: 0.6, 
+                ease: [0.22, 1, 0.36, 1] 
               }}
               className={`flex flex-col items-center lg:items-start text-center lg:text-left ${language === 'ur' ? 'lg:items-end lg:text-right font-urdu' : ''}`}
             >
@@ -183,23 +183,23 @@ export default function Hero() {
                 <div className="relative z-10 w-full h-full flex items-center justify-center p-12">
                   {slide.id === 'templates' ? (
                     <div className="grid grid-cols-2 gap-6 w-full h-full">
-                      <motion.div animate={{ y: [0, -15, 0] }} transition={{ duration: 4, repeat: Infinity }} className="bg-white border border-slate-100 rounded-xl shadow-xl p-6 flex flex-col justify-between">
-                        <Layout className="text-brand-gold" size={24} />
+                      <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity }} className="bg-white border border-slate-100 rounded-xl shadow-xl p-6 flex flex-col justify-between">
+                        <Layout className="text-brand-purple" size={24} />
                         <div className="space-y-4">
                           <div className="w-full h-2 bg-slate-100 rounded-full" />
                           <div className="w-2/3 h-2 bg-slate-100 rounded-full" />
                         </div>
                       </motion.div>
-                      <motion.div animate={{ y: [0, 15, 0] }} transition={{ duration: 5, repeat: Infinity, delay: 0.5 }} className="bg-white border border-brand-gold/20 rounded-xl shadow-xl p-6 flex items-center justify-center">
-                        <CreditCard className="text-brand-gold animate-pulse" size={40} />
+                      <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 7, repeat: Infinity, delay: 0.5 }} className="bg-white border border-slate-100 rounded-xl shadow-xl p-6 flex items-center justify-center">
+                        <CreditCard className="text-brand-purple" size={40} />
                       </motion.div>
-                      <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 6, repeat: Infinity }} className="col-span-2 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-6 flex flex-col gap-4">
+                      <motion.div className="col-span-2 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-6 flex flex-col gap-4">
                         <div className="flex justify-between items-center">
                           <div className="text-[10px] text-slate-500 uppercase font-black tracking-widest">Protocol Active</div>
                           <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]" />
                         </div>
-                        <div className="w-full h-4 bg-slate-800 rounded-sm overflow-hidden">
-                          <motion.div animate={{ x: ['-100%', '200%'] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="w-1/3 h-full bg-brand-gold/40 skew-x-12" />
+                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                          <motion.div animate={{ x: ['-100%', '200%'] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }} className="w-1/2 h-full bg-brand-purple/40 skew-x-12" />
                         </div>
                       </motion.div>
                     </div>
@@ -237,15 +237,15 @@ export default function Hero() {
                         >
                           <div className="bg-slate-900 p-6 rounded-xl shadow-2xl flex flex-col gap-3">
                             <div className="flex justify-between items-center">
-                              <Zap className="text-brand-gold" size={16} />
-                              <div className="text-[8px] text-brand-gold font-bold uppercase tracking-widest">Live</div>
+                              <Zap className="text-brand-purple" size={16} />
+                              <div className="text-[8px] text-brand-purple font-bold uppercase tracking-widest">Live</div>
                             </div>
                             <div className="text-2xl font-serif italic text-white">$2,480</div>
                             <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
                               <motion.div 
                                 animate={{ width: '70%' }}
-                                transition={{ duration: 1, delay: 0.8 }}
-                                className="h-full bg-brand-gold" 
+                                transition={{ duration: 0.8 }}
+                                className="h-full bg-brand-purple" 
                               />
                             </div>
                           </div>

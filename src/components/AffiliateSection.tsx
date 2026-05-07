@@ -96,12 +96,15 @@ export default function AffiliateSection() {
                 className="group relative bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-10 rounded-[3rem] hover:bg-white/[0.07] hover:border-white/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
               >
                 <div className="flex justify-between items-start mb-10">
-                  <div className="w-16 h-16 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center p-3 group-hover:border-brand-purple transition-all duration-500 shadow-sm overflow-hidden">
+                  <div className="w-16 h-16 bg-white rounded-2xl border border-white/10 flex items-center justify-center p-3 group-hover:border-brand-purple transition-all duration-500 shadow-sm overflow-hidden">
                     <img 
-                      src={product.image} 
+                      src={product.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(product.title)}&background=8b5cf6&color=fff`} 
                       alt={product.title} 
-                      className="w-full h-full object-contain group-hover:scale-125 transition-transform duration-700 brightness-0 invert"
-                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(product.title)}&background=8b5cf6&color=fff`;
+                      }}
+                      loading="lazy"
                     />
                   </div>
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest border border-white/10 px-4 py-1.5 rounded-full">
