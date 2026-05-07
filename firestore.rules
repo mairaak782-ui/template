@@ -19,11 +19,23 @@ service cloud.firestore {
              data.image is string && data.image.size() <= 1000;
     }
 
+    function isValidFeedback(data) {
+      return data.userName is string && data.userName.size() <= 100 &&
+             data.category is string && data.category in ["Suggestion", "Problem", "Feature Request"] &&
+             data.message is string && data.message.size() <= 5000;
+    }
+
     match /products/{productId} {
       allow read: if true;
       allow create: if isSignedIn() && isValidProduct(request.resource.data);
       allow update: if isSignedIn() && isValidProduct(request.resource.data);
       allow delete: if isSignedIn();
+    }
+
+    match /feedbacks/{feedbackId} {
+      allow read: if isSignedIn();
+      allow create: if true; // Allow anonymous or any user to submit feedback
+      allow update, delete: if isSignedIn();
     }
     
     // Testing collection

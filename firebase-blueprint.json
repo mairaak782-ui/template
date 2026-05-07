@@ -19,12 +19,29 @@
         "updatedAt": { "type": "string", "format": "date-time" }
       },
       "required": ["title", "description", "price", "category", "image"]
+    },
+    "Feedback": {
+      "title": "Feedback & Suggestion",
+      "description": "Represents a user request or problem report for new digital assets.",
+      "type": "object",
+      "properties": {
+        "userName": { "type": "string", "description": "Name of the user" },
+        "userEmail": { "type": "string", "description": "Contact email" },
+        "category": { "type": "string", "enum": ["Suggestion", "Problem", "Feature Request"], "description": "Type of feedback" },
+        "message": { "type": "string", "description": "The content of the feedback or request" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userName", "category", "message", "createdAt"]
     }
   },
   "firestore": {
     "/products/{productId}": {
       "schema": "Product",
       "description": "Collection of available digital assets and templates."
+    },
+    "/feedbacks/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "Collection of user suggestions and feedback."
     }
   }
 }

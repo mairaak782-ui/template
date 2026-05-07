@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 import { generateProductContent } from '../lib/gemini';
-import { Plus, Trash2, Loader2, Sparkles, LogIn, ExternalLink, Package, ShieldCheck, ArrowLeft, Home } from 'lucide-react';
+import { Plus, Trash2, Loader2, Sparkles, LogIn, ExternalLink, Package, ShieldCheck, ArrowLeft, Home, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function Admin() {
@@ -27,7 +27,10 @@ export default function Admin() {
     badge: '',
     affiliateLink: '',
     features: [] as string[],
-    mockupPrompt: ''
+    mockupPrompt: '',
+    seoTitle: '',
+    seoDescription: '',
+    location: 'Global Forge HQ'
   });
 
   useEffect(() => {
@@ -86,7 +89,10 @@ export default function Admin() {
         mockupPrompt: result.mockupPrompt,
         features: result.features,
         category: result.suggestedCategory || 'template',
-        price: result.suggestedPrice?.toString() || ''
+        price: result.suggestedPrice?.toString() || '',
+        seoTitle: result.title,
+        seoDescription: result.description,
+        location: 'Global Forge HQ'
       });
       alert('Content generated successfully! You can find the 3D mockup prompt in the field below.');
     } catch (error) {
@@ -104,7 +110,10 @@ export default function Admin() {
         ...formData,
         price: parseFloat(formData.price),
         createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
+        seoTitle: formData.seoTitle,
+        seoDescription: formData.seoDescription,
+        location: formData.location
       });
       setFormData({
         title: '',
@@ -115,7 +124,10 @@ export default function Admin() {
         badge: '',
         affiliateLink: '',
         features: [],
-        mockupPrompt: ''
+        mockupPrompt: '',
+        seoTitle: '',
+        seoDescription: '',
+        location: 'Global Forge HQ'
       });
       setNewProductInput('');
       fetchProducts();
@@ -282,6 +294,46 @@ export default function Admin() {
                       onChange={(e) => setFormData({...formData, price: e.target.value})}
                       className="w-full bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
                       required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="block text-[9px] uppercase font-bold tracking-widest text-slate-400 mb-2">Asset Origin / Location</label>
+                    <select 
+                      value={formData.location}
+                      onChange={(e) => setFormData({...formData, location: e.target.value})}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 text-xs focus:outline-none focus:border-brand-gold transition-all"
+                      required
+                    >
+                      <option value="Global Forge HQ">Global Forge HQ</option>
+                      <option value="Design Lab Alpha">Design Lab Alpha</option>
+                      <option value="SaaS Infrastructure Hub">SaaS Infrastructure Hub</option>
+                      <option value="Premium Matrimonial Archive">Premium Matrimonial Archive</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="space-y-4 p-4 bg-slate-50 border border-slate-100 rounded-sm">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-brand-purple">SEO Optimization Protocol</p>
+                  <div>
+                    <label className="block text-[8px] uppercase font-bold tracking-widest text-slate-400 mb-1">Meta Title</label>
+                    <input 
+                      type="text"
+                      value={formData.seoTitle}
+                      onChange={(e) => setFormData({...formData, seoTitle: e.target.value})}
+                      placeholder="Keywords-rich SEO Title"
+                      className="w-full bg-white border border-slate-200 rounded-sm px-4 py-2 text-xs focus:outline-none focus:border-brand-gold transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[8px] uppercase font-bold tracking-widest text-slate-400 mb-1">Meta Description</label>
+                    <textarea 
+                      value={formData.seoDescription}
+                      onChange={(e) => setFormData({...formData, seoDescription: e.target.value})}
+                      placeholder="High-converting SEO description"
+                      className="w-full bg-white border border-slate-200 rounded-sm px-4 py-2 text-xs focus:outline-none focus:border-brand-gold transition-all min-h-[60px]"
                     />
                   </div>
                 </div>

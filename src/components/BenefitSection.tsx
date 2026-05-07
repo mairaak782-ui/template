@@ -27,7 +27,7 @@ const benefits = [
 export default function BenefitSection() {
   return (
     <section className="py-32 bg-slate-50 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-30" />
+      <div className="absolute inset-0 bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.03]" />
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-24">
@@ -35,22 +35,22 @@ export default function BenefitSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-gold mb-4"
+            className="text-[10px] font-black uppercase tracking-[0.6em] text-brand-gold mb-6"
           >
-            The Archive Advantage
+            The Forge Advantage
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-serif italic text-slate-900"
+            className="text-5xl md:text-7xl font-serif italic text-slate-950 tracking-tighter"
           >
             Why Choose <span className="not-italic font-sans font-black uppercase text-brand-gold">Our Designs?</span>
           </motion.h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {benefits.map((benefit, idx) => (
             <motion.div
               key={idx}
@@ -59,13 +59,13 @@ export default function BenefitSection() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               whileHover={{ y: -10 }}
-              className="bg-white p-10 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center group"
+              className="bg-white border border-slate-100 p-12 rounded-[2.5rem] shadow-sm flex flex-col items-center text-center group transition-all duration-700 hover:shadow-2xl hover:shadow-slate-200 hover:border-brand-gold/20"
             >
-              <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-gold/10 transition-colors">
+              <div className="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mb-10 group-hover:bg-brand-gold/10 transition-colors">
                 {benefit.icon}
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">{benefit.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed font-light">
+              <h3 className="text-2xl font-bold text-slate-950 mb-6 tracking-tight uppercase tracking-widest text-sm">{benefit.title}</h3>
+              <p className="text-slate-500 text-base leading-relaxed font-light">
                 {benefit.description}
               </p>
             </motion.div>

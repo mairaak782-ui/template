@@ -43,19 +43,19 @@ export default function ProductDetail() {
     return (
       <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
         <h1 className="text-2xl font-serif mb-4">Asset Not Found</h1>
-        <Link to="/" className="text-brand-gold uppercase tracking-widest font-bold text-xs border-b border-brand-gold pb-1">Return to Archive</Link>
+        <Link to="/" className="text-brand-gold uppercase tracking-widest font-bold text-xs border-b border-brand-gold pb-1">Return to Collection</Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FDFDFD]">
       <Navbar />
       
-      <main className="pt-32 pb-20">
+      <main className="pt-40 pb-32">
         <div className="max-w-7xl mx-auto px-6">
-          <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-brand-gold transition-colors mb-12 text-[10px] uppercase font-bold tracking-[0.3em]">
-            <ArrowLeft size={14} /> Back to Collection
+          <Link to="/" className="inline-flex items-center gap-3 text-slate-400 hover:text-brand-gold transition-colors mb-16 text-[11px] uppercase font-black tracking-[0.4em]">
+            <ArrowLeft size={16} /> Back to Collection
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-16">
@@ -65,11 +65,12 @@ export default function ProductDetail() {
               animate={{ opacity: 1, x: 0 }}
               className="relative"
             >
-              <div className="aspect-[4/5] rounded-sm overflow-hidden border border-slate-100 shadow-2xl">
+              <div className="aspect-[4/5] rounded-[3rem] overflow-hidden border border-slate-100 shadow-3xl shadow-slate-200">
                 <img 
                   src={product.image} 
                   alt={product.title} 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
+                  referrerPolicy="no-referrer"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 glass-card p-6 rounded-sm shadow-xl border-l-4 border-l-brand-gold max-w-[200px]">
@@ -112,12 +113,12 @@ export default function ProductDetail() {
 
               <div className="pt-10 border-t border-slate-100 flex flex-col sm:flex-row gap-4">
                 <motion.a
-                  href="#contact-form"
+                  href="#contact"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="flex-1 bg-brand-gold text-white py-5 rounded-sm font-bold uppercase text-[10px] tracking-[0.3em] flex items-center justify-center gap-3 shadow-xl shadow-brand-gold/20"
                 >
-                  Acquire Asset <ShoppingBag size={16} />
+                  Acquire License <ShoppingBag size={16} />
                 </motion.a>
                 <button className="flex-1 border border-slate-200 text-slate-400 py-5 rounded-sm font-bold uppercase text-[10px] tracking-[0.3em] hover:bg-slate-50 transition-colors">
                   Technical Docs

@@ -1,40 +1,43 @@
 import { Mail, Github, Twitter, Linkedin, Terminal, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useLanguage } from '../lib/LanguageContext';
 
 export default function Footer() {
+  const { t, language } = useLanguage();
+
   return (
-    <footer id="contact" className="bg-slate-50 text-slate-600 py-20 border-t border-slate-100">
+    <footer id="contact" className="relative text-slate-500 py-32 border-t border-slate-100 bg-linear-to-b from-slate-50 to-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 pb-16 border-b border-slate-200">
+        <div className={`grid lg:grid-cols-2 gap-24 pb-24 border-b border-slate-50 ${language === 'ur' ? 'lg:flex-row-reverse' : ''}`}>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className={language === 'ur' ? 'text-right' : ''}
           >
-            <h2 className="text-4xl md:text-5xl font-serif italic text-slate-900 mb-10 leading-[1.1]">
-              Ready for <br />
-              <span className="text-gradient-gold not-italic font-sans font-bold tracking-tighter">Digital Mastery.</span>
+            <h2 className={`text-5xl md:text-7xl font-serif italic text-slate-950 mb-12 leading-[1.1] tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal leading-tight' : ''}`}>
+              {t('footer.title')}
             </h2>
-            <p className="text-slate-400 text-base mb-10 max-w-md leading-relaxed font-light">
-              Secure your access to our premium templates and insights. Subscribe to the Collective for curated intelligence.
+            <p className={`text-slate-500 text-lg mb-12 max-w-md leading-relaxed font-light ${language === 'ur' ? 'font-urdu' : ''}`}>
+              {t('footer.desc')}
             </p>
-            <form id="contact-form" className="flex flex-col sm:flex-row gap-0 max-w-lg group" onSubmit={(e) => {
+            <form id="contact-form" className={`flex flex-col sm:flex-row gap-4 max-w-lg group ${language === 'ur' ? 'sm:flex-row-reverse' : ''}`} onSubmit={(e) => {
               e.preventDefault();
-              alert("Subscribed! Welcome to the Collective.");
+              alert(language === 'en' ? "Subscribed! Welcome to Template Forge." : "سبسکرائب ہو گیا! آرکائیو میں خوش آمدید۔");
             }}>
               <input 
                 type="email" 
-                placeholder="Secure Email Address" 
-                className="flex-1 bg-white border border-slate-200 rounded-sm px-8 py-5 focus:outline-none focus:border-brand-gold transition-colors text-sm uppercase tracking-[0.2em] font-bold text-slate-900"
+                placeholder={language === 'en' ? "Secure Email" : "ای میل درج کریں"} 
+                className={`flex-1 bg-slate-50 border border-slate-100 rounded-full px-10 py-6 focus:outline-none focus:border-brand-purple transition-colors text-sm font-bold text-slate-950 placeholder:text-slate-400 shadow-sm ${language === 'ur' ? 'text-right font-urdu' : ''}`}
                 required
               />
               <motion.button 
-                whileHover={{ backgroundColor: "#B8860B" }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-brand-gold text-white px-10 py-5 rounded-sm font-bold uppercase text-[10px] tracking-[0.3em] transition-colors flex items-center justify-center gap-3"
+                className="bg-slate-950 text-white px-12 py-6 rounded-full font-black uppercase text-[10px] tracking-[0.3em] transition-all flex items-center justify-center gap-3 shadow-2xl shadow-slate-200 hover:bg-brand-purple"
               >
-                Join <ArrowRight size={14} />
+                {language === 'en' ? 'Join' : 'شامل ہوں'} <ArrowRight size={14} className={language === 'ur' ? 'rotate-180' : ''} />
               </motion.button>
             </form>
           </motion.div>
@@ -44,48 +47,51 @@ export default function Footer() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-3 gap-16"
+            className={`grid grid-cols-2 sm:grid-cols-3 gap-16 ${language === 'ur' ? 'text-right' : ''}`}
           >
             <div>
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-400 mb-10">Navigation</h4>
-              <ul className="space-y-6 text-[11px] uppercase tracking-[0.1em] font-bold text-slate-400">
-                <li><motion.a whileHover={{ x: 5, color: "#D4AF37" }} href="#store" className="transition-colors block">The Store</motion.a></li>
-                <li><motion.a whileHover={{ x: 5, color: "#D4AF37" }} href="#affiliate" className="transition-colors block">Resources</motion.a></li>
-                <li><motion.a whileHover={{ x: 5, color: "#D4AF37" }} href="#blog" className="transition-colors block">The Journal</motion.a></li>
-                <li><motion.a whileHover={{ x: 5, color: "#D4AF37" }} href="#about" className="transition-colors block">Our Ethos</motion.a></li>
+              <h4 className={`text-[10px] font-black uppercase tracking-[0.6em] text-slate-300 mb-10 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>{language === 'en' ? 'Navigation' : 'نیویگیشن'}</h4>
+              <ul className={`space-y-6 text-[11px] uppercase tracking-[0.2em] font-black text-slate-400 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>
+                <li><motion.a whileHover={{ x: 5, color: "#6D28D9" }} href="#templates" className="transition-colors block">{t('nav.templates')}</motion.a></li>
+                <li><motion.a whileHover={{ x: 5, color: "#6D28D9" }} href="#saas" className="transition-colors block">{t('nav.saas')}</motion.a></li>
+                <li><motion.a whileHover={{ x: 5, color: "#6D28D9" }} href="#cards" className="transition-colors block">{t('nav.matrimonial')}</motion.a></li>
+                <li><motion.a whileHover={{ x: 5, color: "#6D28D9" }} href="#about" className="transition-colors block">{t('nav.about')}</motion.a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-400 mb-10">Connect</h4>
-              <ul className="space-y-6 text-[11px] uppercase tracking-[0.1em] font-bold text-slate-400">
-                <li><motion.a whileHover={{ x: 5, color: "#D4AF37" }} href="#" className="transition-colors block">Twitter (X)</motion.a></li>
-                <li><motion.a whileHover={{ x: 5, color: "#D4AF37" }} href="#" className="transition-colors block">LinkedIn</motion.a></li>
-                <li><motion.a whileHover={{ x: 5, color: "#D4AF37" }} href="#" className="transition-colors block">Instagram</motion.a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-400 mb-10">Protocol</h4>
-              <ul className="space-y-6 text-[10px] uppercase font-bold tracking-widest text-slate-400">
-                <li><motion.a whileHover={{ color: "#D4AF37" }} href="#" className="transition-colors block">Privacy</motion.a></li>
-                <li><motion.a whileHover={{ color: "#D4AF37" }} href="#" className="transition-colors block">Terms</motion.a></li>
-                <li><motion.a whileHover={{ color: "#D4AF37" }} href="#" className="transition-colors block">Affiliate</motion.a></li>
+              <h4 className={`text-[10px] font-black uppercase tracking-[0.6em] text-slate-300 mb-10 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>{language === 'en' ? 'Connect' : 'روابط'}</h4>
+              <ul className={`space-y-6 text-[11px] uppercase tracking-[0.2em] font-black text-slate-400 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>
+                <li><motion.a whileHover={{ x: 5, color: "#6D28D9" }} href="#" className="transition-colors block">Twitter (X)</motion.a></li>
+                <li><motion.a whileHover={{ x: 5, color: "#6D28D9" }} href="#" className="transition-colors block">LinkedIn</motion.a></li>
+                <li><motion.a whileHover={{ x: 5, color: "#6D28D9" }} href="#" className="transition-colors block">Instagram</motion.a></li>
               </ul>
             </div>
           </motion.div>
         </div>
 
-        <div className="pt-16 flex flex-col md:flex-row justify-between items-center gap-12 text-slate-400">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold tracking-tighter text-slate-900">MODERN<span className="text-brand-gold font-serif italic ml-1">ARCHIVE</span></span>
+        <div className={`pt-24 flex flex-col md:flex-row justify-between items-center gap-12 text-slate-400 ${language === 'ur' ? 'md:flex-row-reverse' : ''}`}>
+          <div className="flex items-center gap-4">
+            <div className="relative w-16 h-16 flex items-center justify-center">
+              <div className="absolute inset-x-0 h-[2px] bg-slate-200 top-0" />
+              <div className="absolute inset-y-0 w-[2px] bg-slate-200 left-0" />
+              <div className="absolute inset-0 bg-brand-purple translate-x-2 -translate-y-2"></div>
+              <div className="relative z-10 text-white font-black text-2xl drop-shadow-md">
+                TF
+              </div>
+            </div>
+            <span className={`text-3xl font-bold tracking-tighter text-slate-950 flex flex-col gap-0 uppercase ${language === 'ur' ? 'text-right' : ''}`}>
+              <span className="font-display font-black leading-none text-2xl">TEMPLATE</span>
+              <span className="text-brand-purple font-display font-bold tracking-[0.4em] text-[10px] leading-none mt-1">FORGE ARCADE</span>
+            </span>
           </div>
-          <div className="text-[9px] uppercase tracking-[0.5em] text-slate-300 font-bold border-x border-slate-200 px-8 py-2">
-            &copy; {new Date().getFullYear()} MODERN ARCHIVE ECOSYSTEM. V2.0
+          <div className={`text-[10px] uppercase tracking-[0.6em] text-slate-300 font-black border-x border-slate-50 px-12 py-3 ${language === 'ur' ? 'font-urdu tracking-normal border-none' : ''}`}>
+            &copy; {new Date().getFullYear()} TEMPLATE FORGE ECOSYSTEM. V2.0
           </div>
           <div className="flex items-center gap-10">
-            <motion.a whileHover={{ color: "#D4AF37" }} href="/admin" className="text-[9px] uppercase tracking-widest font-bold transition-colors">Admin</motion.a>
-            <motion.div whileHover={{ y: -5, color: "#D4AF37" }} className="transition-colors cursor-pointer"><Twitter size={20} /></motion.div>
-            <motion.div whileHover={{ y: -5, color: "#D4AF37" }} className="transition-colors cursor-pointer"><Github size={20} /></motion.div>
-            <motion.div whileHover={{ y: -5, color: "#D4AF37" }} className="transition-colors cursor-pointer"><Mail size={20} /></motion.div>
+            <motion.a whileHover={{ color: "#6D28D9" }} href="/admin" className={`text-[10px] uppercase tracking-[0.4em] font-black transition-colors ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{language === 'en' ? 'Admin' : 'ایڈمن'}</motion.a>
+            <motion.div whileHover={{ y: -5, color: "#6D28D9" }} className="transition-colors cursor-pointer"><Twitter size={20} /></motion.div>
+            <motion.div whileHover={{ y: -5, color: "#6D28D9" }} className="transition-colors cursor-pointer"><Github size={20} /></motion.div>
+            <motion.div whileHover={{ y: -5, color: "#6D28D9" }} className="transition-colors cursor-pointer"><Mail size={20} /></motion.div>
           </div>
         </div>
       </div>

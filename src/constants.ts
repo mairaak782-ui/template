@@ -3,7 +3,7 @@ export interface Product {
   title: string;
   description: string;
   price: number;
-  category: 'template' | 'journal';
+  category: 'template' | 'journal' | 'card' | 'saas' | 'application';
   image: string;
   badge?: string;
 }
@@ -40,11 +40,30 @@ export const products: Product[] = [
   },
   {
     id: '2',
-    title: 'Digital Productivity Journal',
-    description: 'A 365-day interactive PDF journal designed for maximum efficiency.',
-    price: 19,
-    category: 'journal',
-    image: 'https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=800&q=80'
+    title: 'Premium Nikkah Card Design',
+    description: 'Elite digital invitation with gold foil aesthetic and traditional motifs.',
+    price: 25,
+    category: 'card',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80',
+    badge: 'Luxury'
+  },
+  {
+    id: 'saas-1',
+    title: 'ForgeCRM SaaS App',
+    description: 'Full-stack CRM application for managing digital asset sales and customer relations.',
+    price: 129,
+    category: 'saas',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+    badge: 'Enterprise'
+  },
+  {
+    id: 'app-1',
+    title: 'TaskFlow Productivity App',
+    description: 'Cross-platform task management application with real-time sync and gold-standard UI.',
+    price: 79,
+    category: 'application',
+    image: 'https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=800&q=80',
+    badge: 'App Store'
   },
   {
     id: '3',
@@ -57,11 +76,11 @@ export const products: Product[] = [
   },
   {
     id: '4',
-    title: 'Gratitude & Wellness Log',
-    description: 'A beautifully designed printable journal for mental well-being.',
+    title: 'Birthday Celebration Design',
+    description: 'Modern, playful digital card for high-end birthday events.',
     price: 15,
-    category: 'journal',
-    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80'
+    category: 'card',
+    image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
@@ -76,18 +95,18 @@ export const resources: Resource[] = [
   },
   {
     id: '2',
-    title: 'Canva Pro',
-    description: 'Create professional designs with thousands of templates and assets.',
+    title: 'Canva Pro Early Access',
+    description: 'Unlock professional designs with thousands of premium templates and AI assets.',
     link: '#',
-    image: 'https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?auto=format&fit=crop&w=800&q=80',
-    rating: 4.8
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80',
+    rating: 4.9
   },
   {
     id: '3',
     title: 'Grammarly',
     description: 'Upgrade your writing with AI-powered suggestions and clarity checks.',
     link: '#',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
     rating: 4.5
   }
 ];
@@ -95,32 +114,33 @@ export const resources: Resource[] = [
 export const blogPosts: BlogPost[] = [
   {
     id: '1',
-    title: 'How to Build a High-Converting Storefront in 2024',
-    excerpt: 'Learn the principles of UI/UX that turn visitors into loyal customers.',
-    date: 'May 12, 2024',
-    author: 'Admin',
-    category: 'Business',
-    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80',
-    content: 'Long content here...'
+    title: 'Mastering Digital Templates: The Ultimate CEO Guide to High-Converting Layouts',
+    excerpt: 'Discover how to transform static HTML into dynamic, high-revenue engines with Maira\'s expert customization protocols and design principles.',
+    date: 'May 10, 2026',
+    author: 'Maira (CEO)',
+    category: 'Tutorial',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+    content: 'Full article content for mastering digital templates...'
   },
   {
     id: '2',
-    title: 'Designing Digital Assets That Sell',
-    excerpt: 'Master the art of creating premium digital products that stand out in a crowded market.',
-    date: 'May 08, 2024',
-    author: 'Maira',
+    title: 'Best Nikkah Designs 2026: Modern Traditions & Luxury Invitation Inspiration',
+    excerpt: 'Step into the future of matrimonial elegance with our curated selection of the most sophisticated Nikkah designs for the 2026 season.',
+    date: 'May 08, 2026',
+    author: 'Maira (CEO)',
     category: 'Design',
-    image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80',
-    content: 'Long content here...'
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=80',
+    content: 'Full article content for best Nikkah designs 2026...'
   },
   {
     id: '3',
-    title: 'Why Digital Journals are the Future of Productivity',
-    excerpt: 'Digital journals offer flexibility and searchability that paper simply cannot match.',
-    date: 'May 01, 2024',
-    author: 'Admin',
-    category: 'Life',
-    image: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80',
-    content: 'Long content here...'
+    title: 'Scaling SaaS Empires: CEO Maira\'s Blueprint for Iconic Software Architectures',
+    excerpt: 'Exclusive insights into the technical and strategic layers required to build, scale, and dominate the modern SaaS market using high-performance infrastructure.',
+    date: 'May 05, 2026',
+    author: 'Maira (CEO)',
+    category: 'Innovation',
+    image: 'https://images.unsplash.com/photo-1454165833069-b1950e67e2d1?auto=format&fit=crop&w=1200&q=80',
+    content: 'Full article content for scaling SaaS empires...'
   }
 ];
+

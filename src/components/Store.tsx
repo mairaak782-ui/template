@@ -5,8 +5,10 @@ import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { collection, onSnapshot, query, where, orderBy } from 'firebase/firestore';
 import { products as initialProducts } from '../constants';
 import { ArrowRight, ShoppingBag } from 'lucide-react';
+import { useLanguage } from '../lib/LanguageContext';
 
 export default function Store({ filterCategory, sectionId, title, subTitle }: { filterCategory?: string, sectionId?: string, title?: string, subTitle?: string }) {
+  const { t, language } = useLanguage();
   const [dbProducts, setDbProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -47,92 +49,95 @@ export default function Store({ filterCategory, sectionId, title, subTitle }: { 
   if (filteredProducts.length === 0) return null;
 
   return (
-    <section id={sectionId || "store"} className="py-32 bg-white border-t border-slate-100">
+    <section id={sectionId || "store"} className={`py-16 md:py-32 border-t border-slate-100/10 ${sectionId === 'templates' ? 'bg-transparent' : 'bg-slate-900/5 backdrop-blur-sm'}`}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+        <div className={`flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8 ${language === 'ur' ? 'md:flex-row-reverse text-right' : ''}`}>
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-gold mb-4"
+              className={`text-[10px] font-black uppercase tracking-[0.6em] text-brand-gold mb-6 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}
             >
-              Curated Archive
+              {sectionId === 'cards' ? (language === 'en' ? 'Exclusive Artisans' : 'خاص ڈیزائنز') : t('store.tag')}
             </motion.div>
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-serif italic text-slate-900"
+              className={`text-4xl md:text-7xl font-serif italic text-slate-950 leading-tight tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
             >
-              {title || "The Collection"}
+              {title || t('store.title')}
             </motion.h2>
-            <p className="text-slate-500 text-sm md:text-lg font-light mt-6 max-w-xl">
-              {subTitle || "Precision-built systems and aesthetic components for high-performance builders."}
+            <p className={`text-slate-500 text-base md:text-lg font-light mt-8 max-w-xl leading-relaxed ${language === 'ur' ? 'font-urdu' : ''}`}>
+              {subTitle || (language === 'en' ? "Precision-built systems and aesthetic components for high-performance builders." : "اعلیٰ کارکردگی والے بلڈرز کے لیے انتہائی درستگی کے ساتھ بنائے گئے نظام۔")}
             </p>
           </div>
-          <div className="flex flex-col items-end gap-2">
-            <span className="text-[9px] uppercase font-bold text-slate-300 tracking-[0.3em]">
-              Available Now
+          <div className="flex flex-col items-end gap-3 md:translate-y-[-10px]">
+            <span className={`text-[10px] uppercase font-black text-slate-400 tracking-[0.4em] ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>
+              {language === 'en' ? 'Available Now' : 'ابھی دستیاب ہے'}
             </span>
             <div className="flex gap-2">
-              <div className="h-1.5 w-12 bg-brand-gold rounded-full" />
-              <div className="h-1.5 w-4 bg-slate-100 rounded-full" />
+              <div className="h-1.5 w-16 bg-brand-gold rounded-full" />
+              <div className="h-1.5 w-6 bg-slate-200 rounded-full" />
             </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+        <div className={`grid gap-10 md:gap-16 ${sectionId === 'cards' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
           {filteredProducts.map((product, idx) => (
             <Link 
               key={product.id || idx}
               to={product.id ? `/product/${product.id}` : '#'}
-              className="group"
+              className={`group ${sectionId === 'cards' && idx % 3 === 0 ? 'md:col-span-2' : ''}`}
             >
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
                 viewport={{ once: true, margin: "-50px" }}
-                className="flex flex-col h-full rounded-3xl overflow-hidden border border-slate-100 bg-white hover:border-brand-gold transition-all duration-700 hover:shadow-3xl hover:shadow-slate-200"
+                className={`flex flex-col h-full overflow-hidden border border-slate-100 bg-white hover:border-brand-gold/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] 
+                  rounded-[2rem] 
+                  ${sectionId === 'cards' && idx % 3 === 0 ? 'md:flex-row' : ''}`}
               >
-                <div className="relative aspect-[3/4] overflow-hidden transition-all duration-1000">
+                <div className={`relative overflow-hidden transition-all duration-1000 ${sectionId === 'cards' && idx % 3 === 0 ? 'aspect-[16/9] md:aspect-auto md:w-1/2' : 'aspect-[4/5]'}`}>
                   <img 
                     src={product.image} 
                     alt={product.title} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-95 group-hover:opacity-100 grayscale-[0.2] group-hover:grayscale-0"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   {product.badge && (
-                    <div className="absolute top-6 left-6 bg-slate-900 text-white text-[8px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full shadow-2xl backdrop-blur-md">
+                    <div className="absolute top-6 left-6 md:top-8 md:left-8 bg-white/90 backdrop-blur-md text-slate-900 text-[9px] font-black uppercase tracking-[0.3em] px-5 py-2.5 rounded-full shadow-xl">
                       {product.badge}
                     </div>
                   )}
-                  <div className="absolute bottom-6 right-6 translate-y-20 group-hover:translate-y-0 transition-transform duration-500">
-                    <div className="bg-white/90 backdrop-blur-md w-12 h-12 rounded-full flex items-center justify-center text-slate-900 shadow-2xl">
-                      <ArrowRight size={20} />
+                  <div className="absolute bottom-8 right-8 translate-y-20 group-hover:translate-y-0 transition-transform duration-500 hidden md:block">
+                    <div className="bg-brand-gold text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl">
+                      <ArrowRight size={24} />
                     </div>
                   </div>
                 </div>
 
-                <div className="p-8 flex-1 flex flex-col">
-                  <div className="text-[9px] font-black text-brand-gold uppercase tracking-[0.4em] mb-4">
+                <div className={`p-8 md:p-10 flex-1 flex flex-col bg-white ${sectionId === 'cards' && idx % 3 === 0 ? 'md:justify-center' : ''}`}>
+                  <div className="text-[10px] font-black text-brand-gold uppercase tracking-[0.5em] mb-4 md:mb-6">
                     {product.category}
                   </div>
-                  <h3 className="text-xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-brand-gold transition-colors duration-300">
+                  <h3 className="text-2xl font-bold mb-4 tracking-tight text-slate-950 group-hover:text-brand-gold transition-colors duration-300 uppercase">
                     {product.title}
                   </h3>
-                  <p className="text-xs text-slate-400 mb-10 line-clamp-2 leading-relaxed font-light">
+                  <p className="text-sm text-slate-500 mb-8 md:mb-12 line-clamp-2 leading-relaxed font-light">
                     {product.description}
                   </p>
-                  <div className="mt-auto flex items-center justify-between border-t border-slate-50 pt-8">
-                    <div className="text-3xl font-serif italic text-slate-900 group-hover:text-brand-gold transition-colors">
-                      <span className="text-xs not-italic font-sans font-bold text-slate-300 mr-1">$</span>
+                  <div className="mt-auto flex items-center justify-between border-t border-slate-50 pt-8 md:pt-10">
+                    <div className="text-3xl md:text-4xl font-serif italic text-slate-950 group-hover:text-brand-gold transition-colors">
+                      <span className="text-xs not-italic font-sans font-black text-slate-300 mr-2">$</span>
                       {product.price}
                     </div>
-                    <div className="h-8 w-8 rounded-full border border-slate-100 flex items-center justify-center group-hover:border-brand-gold transition-colors">
-                       <ShoppingBag size={12} className="text-slate-300 group-hover:text-brand-gold transition-colors" />
+                    <div className="h-10 w-10 rounded-full border border-slate-100 flex items-center justify-center group-hover:bg-brand-gold group-hover:border-brand-gold transition-all duration-300">
+                       <ShoppingBag size={14} className="text-slate-400 group-hover:text-white transition-colors" />
                     </div>
                   </div>
                 </div>
