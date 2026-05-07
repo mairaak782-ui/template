@@ -10,16 +10,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [phase, setPhase] = useState('initial');
 
   useEffect(() => {
-    const p1 = setTimeout(() => setPhase('text'), 500);
-    const p2 = setTimeout(() => setPhase('desc'), 1200);
-    const p3 = setTimeout(() => setPhase('transition'), 2500);
-    const p4 = setTimeout(onComplete, 3500);
+    const p1 = setTimeout(() => setPhase('text'), 400);
+    const p2 = setTimeout(() => setPhase('desc'), 1000);
+    const p3 = setTimeout(onComplete, 3000);
 
     return () => {
       clearTimeout(p1);
       clearTimeout(p2);
       clearTimeout(p3);
-      clearTimeout(p4);
     };
   }, [onComplete]);
 

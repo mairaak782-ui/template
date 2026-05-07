@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useLanguage } from './lib/LanguageContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -42,7 +42,7 @@ function MainSite() {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isLoading ? (
         <IntroAnimation key="intro" onComplete={handleComplete} />
       ) : (
@@ -50,7 +50,7 @@ function MainSite() {
           key="content" 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, ease: "easeInOut" }}
           className="relative"
         >
           <AnimatedBackground />
