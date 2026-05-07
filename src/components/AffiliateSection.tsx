@@ -48,92 +48,107 @@ export default function AffiliateSection() {
 
   return (
     <section id="affiliate" className="py-32 relative overflow-hidden">
-      {/* Premium Mesh Gradient Background */}
+      {/* Multidimensional Premium Mesh Gradient */}
       <div className="absolute inset-0 bg-slate-950 -z-20" />
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-brand-purple/40 blur-[130px] rounded-full animate-soft-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-brand-pink/30 blur-[110px] rounded-full animate-soft-pulse [animation-delay:2s]" />
+      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-brand-purple/20 blur-[150px] rounded-full animate-soft-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-brand-pink/15 blur-[150px] rounded-full animate-soft-pulse [animation-delay:3s]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] bg-blue-600/10 blur-[150px] rounded-full" />
+        
+        {/* Animated Grain/Noise Overlay for Texture */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150" />
       </div>
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-24">
+        <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-28">
           <div className="max-w-2xl">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-2 mb-6"
+              className="flex items-center gap-3 mb-6"
             >
-              <Sparkles size={16} className="text-brand-purple" />
-              <span className="text-[10px] uppercase font-black tracking-[0.6em] text-white/50">Curated Stack</span>
+              <div className="h-[1px] w-12 bg-linear-to-r from-brand-purple to-transparent" />
+              <span className="text-[10px] uppercase font-black tracking-[0.8em] text-brand-purple">Tech Ecosystem</span>
             </motion.div>
-            <h2 className="text-5xl md:text-7xl font-serif italic text-white leading-tight">
-              Elite <span className="bg-linear-to-r from-brand-purple to-brand-pink bg-clip-text text-transparent font-sans not-italic font-black uppercase">Technical Partners.</span>
+            <h2 className="text-6xl md:text-8xl font-serif italic text-white leading-[0.9] tracking-tightest">
+              The <span className="bg-linear-to-r from-brand-purple via-white to-brand-pink bg-clip-text text-transparent font-sans not-italic font-black uppercase">Professional</span> <br/>
+              <span className="text-white/40">Selection.</span>
             </h2>
           </div>
-          <div className="text-slate-400 text-base font-light max-w-md mb-2 flex flex-col gap-6">
-            <p>Our infrastructure is powered by industry leaders. We recommend these high-performance platforms for your next digital venture.</p>
-            <div className="flex gap-4">
-              <span className="bg-white/5 border border-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-[9px] uppercase font-black tracking-widest text-slate-300">Hosting</span>
-              <span className="bg-white/5 border border-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-[9px] uppercase font-black tracking-widest text-slate-300">SaaS</span>
-              <span className="bg-white/5 border border-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-[9px] uppercase font-black tracking-widest text-slate-300">Design</span>
+          <div className="text-slate-400 text-lg font-light max-w-sm mb-2 flex flex-col gap-6 leading-relaxed">
+            <p>A hand-picked collection of software and hardware that meets our rigorous standards for digital excellence.</p>
+            <div className="flex flex-wrap gap-3">
+              <span className="px-5 py-2 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-white/50">Enterprise</span>
+              <span className="px-5 py-2 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-white/50">Performance</span>
             </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-12 lg:gap-16">
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
           {isLoading ? (
             [1, 2, 3].map((i) => (
-              <div key={i} className="aspect-video bg-white/5 rounded-[2.5rem] animate-pulse" />
+              <div key={i} className="aspect-[4/5] bg-white/5 rounded-[3rem] animate-pulse" />
             ))
           ) : (
             affiliateProducts.map((product, idx) => (
               <motion.div
                 key={product.id || idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
+                transition={{ delay: idx * 0.1, duration: 0.8 }}
                 viewport={{ once: true }}
-                className="group relative bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-10 rounded-[3rem] hover:bg-white/[0.07] hover:border-white/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
+                className="group relative flex flex-col h-full bg-linear-to-b from-white/[0.06] to-transparent backdrop-blur-3xl border border-white/10 p-10 rounded-[3.5rem] hover:border-white/20 transition-all duration-1000 hover:shadow-[0_60px_100px_-30px_rgba(0,0,0,0.6)]"
               >
-                <div className="flex justify-between items-start mb-10">
-                  <div className="w-16 h-16 bg-white rounded-2xl border border-white/10 flex items-center justify-center p-3 group-hover:border-brand-purple transition-all duration-500 shadow-sm overflow-hidden">
+                {/* Accent Top Bar */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/4 h-[2px] bg-linear-to-r from-transparent via-brand-purple to-transparent opacity-0 group-hover:opacity-100 group-hover:w-1/2 transition-all duration-700" />
+
+                <div className="flex justify-between items-start mb-12">
+                  <div className="w-20 h-20 bg-white rounded-3xl border border-white/10 flex items-center justify-center p-4 group-hover:scale-105 group-hover:rotate-3 transition-all duration-700 shadow-2xl relative overflow-hidden">
+                    <div className="absolute inset-0 bg-linear-to-br from-brand-purple/5 to-transparent" />
                     <img 
                       src={product.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(product.title)}&background=8b5cf6&color=fff`} 
                       alt={product.title} 
-                      className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-contain relative z-10"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(product.title)}&background=8b5cf6&color=fff`;
                       }}
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest border border-white/10 px-4 py-1.5 rounded-full">
-                    {product.category || 'Tool'}
-                  </span>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">
+                      {product.category || 'Architecture'}
+                    </span>
+                    <div className="flex items-center gap-1 text-brand-purple">
+                      <Star size={10} fill="currentColor" />
+                      <span className="text-[10px] font-bold">{product.rating || '4.9'}</span>
+                    </div>
+                  </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-brand-purple transition-colors">
+                <h3 className="text-3xl font-serif italic text-white mb-4 group-hover:tracking-wider transition-all duration-700">
                   {product.title}
                 </h3>
                 
-                <p className="text-sm text-slate-400 mb-10 line-clamp-2 font-light leading-relaxed">
+                <p className="text-sm text-white/40 mb-12 line-clamp-3 font-light leading-relaxed">
                   {product.description}
                 </p>
 
-                <div className="flex items-center justify-between mt-auto pt-8 border-t border-white/5">
+                <div className="mt-auto pt-10 border-t border-white/5 flex items-center justify-between">
                   <div className="flex flex-col">
-                    <span className="text-[9px] text-slate-500 uppercase font-black tracking-widest mb-1">{product.price ? 'Starting At' : 'Rating'}</span>
-                    <span className="text-white font-serif italic text-2xl">
-                      {product.price ? `$${product.price}` : <div className="flex items-center gap-1 text-brand-purple"><Star size={16} fill="currentColor" /> {product.rating}/5</div>}
+                    <span className="text-[8px] text-white/20 uppercase font-black tracking-widest mb-1">MSRP / ENTRY</span>
+                    <span className="text-white font-sans font-black text-2xl tracking-tighter">
+                      {product.price ? `$${product.price}` : 'FREE'}
                     </span>
                   </div>
                   <a 
                     href={product.affiliateLink || product.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-[10px] uppercase font-black tracking-[0.2em] text-brand-purple group-hover:translate-x-2 transition-all duration-500"
+                    className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-brand-purple group-hover:border-brand-purple transition-all duration-500 overflow-hidden relative"
                   >
-                    View <ArrowRight size={14} />
+                    <ArrowRight size={20} className="group-hover:translate-x-12 absolute transition-all duration-500" />
+                    <ArrowRight size={20} className="-translate-x-12 group-hover:translate-x-0 absolute transition-all duration-500" />
                   </a>
                 </div>
               </motion.div>
