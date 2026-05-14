@@ -51,40 +51,23 @@ export default function FeedbackSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className={`grid lg:grid-cols-2 gap-16 md:gap-24 items-center ${language === 'ur' ? 'lg:flex-row-reverse' : ''}`}>
           <div className={`${language === 'ur' ? 'text-right' : ''}`}>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className={`text-[10px] font-black uppercase tracking-[0.6em] text-brand-purple mb-8 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}
-            >
+            <div className={`text-[10px] font-black uppercase tracking-[0.6em] text-brand-purple mb-8 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>
               {t('feedback.tag')}
-            </motion.div>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className={`text-5xl md:text-7xl font-serif italic text-slate-950 mb-12 leading-[1.1] tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
-            >
+            </div>
+            <h2 className={`text-5xl md:text-7xl font-serif italic text-slate-950 mb-12 leading-[1.1] tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>
               {t('feedback.title')}
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className={`text-slate-500 text-xl font-light leading-relaxed mb-16 max-w-lg ${language === 'ur' ? 'font-urdu' : ''}`}
-            >
+            </h2>
+            <p className={`text-slate-500 text-xl font-light leading-relaxed mb-16 max-w-lg ${language === 'ur' ? 'font-urdu' : ''}`}>
               {t('feedback.desc')}
-            </motion.p>
+            </p>
 
             <div className="space-y-12">
               {[
                 { icon: <Sparkles />, title: language === 'en' ? "New Asset Requests" : "نئے اثاثوں کی درخواست", desc: language === 'en' ? "Need a specific Nikkah design or a business SaaS template?" : "کیا آپ کو نکاح کارڈ یا بزنس ٹیمپلیٹ کی ضرورت ہے؟" },
                 { icon: <MessageSquare />, title: language === 'en' ? "Problem Solving" : "مسائل کا حل", desc: language === 'en' ? "Facing technical hurdles? We build tools to bypass them." : "تکنیکی مسائل کا سامنا ہے؟ ہم ان کے لیے ٹولز بناتے ہیں۔" }
               ].map((item, idx) => (
-                <motion.div 
+                <div 
                   key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + idx * 0.1 }}
                   className={`flex gap-6 items-start ${language === 'ur' ? 'flex-row-reverse text-right' : ''}`}
                 >
                   <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-purple shadow-sm border border-slate-100 flex-shrink-0">
@@ -94,16 +77,12 @@ export default function FeedbackSection() {
                     <h4 className={`text-lg font-bold text-slate-950 mb-2 uppercase tracking-wide italic ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>{item.title}</h4>
                     <p className={`text-slate-500 font-light leading-relaxed ${language === 'ur' ? 'font-urdu text-sm' : ''}`}>{item.desc}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-[4rem] p-12 md:p-16 shadow-3xl shadow-slate-200 border border-slate-100 relative group"
-          >
+          <div className="bg-white rounded-[4rem] p-12 md:p-16 shadow-3xl shadow-slate-200 border border-slate-100 relative group">
             <form onSubmit={handleSubmit} className="space-y-10">
               <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-3">
@@ -195,7 +174,7 @@ export default function FeedbackSection() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

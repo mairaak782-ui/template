@@ -1,47 +1,63 @@
 {
   "entities": {
-    "Product": {
-      "title": "Product Entity",
-      "description": "Represents a store item with e-commerce metadata and AI descriptions.",
+    "submission": {
+      "title": "Submission",
+      "description": "User form submissions from contact and lead forms",
       "type": "object",
       "properties": {
-        "title": { "type": "string", "description": "The name of the product" },
-        "description": { "type": "string", "description": "SEO optimized description" },
-        "price": { "type": "number", "description": "Price in USD" },
-        "category": { "type": "string", "description": "Product category" },
-        "type": { "type": "string", "enum": ["digital", "affiliate"], "description": "Whether this is an owned digital asset or an affiliate recommendation" },
-        "image": { "type": "string", "description": "Main product image URL" },
-        "badge": { "type": "string", "description": "Promotional badge (e.g., 'New', 'Popular')" },
-        "affiliateLink": { "type": "string", "description": "Affiliate referral link" },
-        "features": { "type": "array", "items": { "type": "string" }, "description": "Key feature highlights" },
-        "mockupPrompt": { "type": "string", "description": "DALL-E/Midjourney prompt for 3D mockup" },
-        "createdAt": { "type": "string", "format": "date-time" },
-        "updatedAt": { "type": "string", "format": "date-time" }
+        "name": { "type": "string", "description": "User name" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "whatsapp": { "type": "string", "description": "User WhatsApp number" },
+        "message": { "type": "string", "description": "The message they sent" },
+        "type": { "type": "string", "enum": ["contact", "lead", "order", "newsletter"], "description": "Type of submission" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp of creation" }
       },
-      "required": ["title", "description", "price", "category", "image"]
+      "required": ["email", "createdAt"]
     },
-    "Feedback": {
-      "title": "Feedback & Suggestion",
-      "description": "Represents a user request or problem report for new digital assets.",
+    "product": {
+      "title": "Product",
+      "description": "Digital assets or affiliate products",
       "type": "object",
       "properties": {
-        "userName": { "type": "string", "description": "Name of the user" },
-        "userEmail": { "type": "string", "description": "Contact email" },
-        "category": { "type": "string", "enum": ["Suggestion", "Problem", "Feature Request"], "description": "Type of feedback" },
-        "message": { "type": "string", "description": "The content of the feedback or request" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "type": { "type": "string", "enum": ["digital", "affiliate"] },
+        "image": { "type": "string" },
+        "affiliateLink": { "type": "string" },
+        "features": { "type": "array", "items": { "type": "string" } },
         "createdAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["userName", "category", "message", "createdAt"]
+      "required": ["title", "description", "price", "createdAt"]
+    },
+    "feedback": {
+      "title": "Feedback",
+      "description": "User feedback and suggestions",
+      "type": "object",
+      "properties": {
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "category": { "type": "string" },
+        "message": { "type": "string" },
+        "language": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userName", "message", "createdAt"]
     }
   },
   "firestore": {
+    "/submissions/{submissionId}": {
+      "schema": "submission",
+      "description": "Collection for storing user submissions"
+    },
     "/products/{productId}": {
-      "schema": "Product",
-      "description": "Collection of available digital assets and templates."
+      "schema": "product",
+      "description": "Inventory of products and assets"
     },
     "/feedbacks/{feedbackId}": {
-      "schema": "Feedback",
-      "description": "Collection of user suggestions and feedback."
+      "schema": "feedback",
+      "description": "User feedback collection"
     }
   }
 }

@@ -20,29 +20,35 @@ import Blog from './components/Blog';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 import ScrollToTop from './components/ScrollToTop';
 import Admin from './components/Admin';
 import ProductDetail from './components/ProductDetail';
 import BlogDetail from './components/BlogDetail';
+import Login from './components/Login';
 import AnimatedBackground from './components/AnimatedBackground';
 import IntroAnimation from './components/IntroAnimation';
 
 function MainSite() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleIntroComplete = () => {
+    setIsLoading(false);
+  };
+
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative min-h-screen bg-slate-50">
       <AnimatePresence mode="wait">
         {isLoading ? (
-          <IntroAnimation key="intro" onComplete={() => setIsLoading(false)} />
+          <IntroAnimation key="intro" onComplete={handleIntroComplete} />
         ) : (
           <motion.div 
             key="content" 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ 
-              duration: 0.4, 
+              duration: 0.3, 
             }}
             className="relative"
           >
@@ -55,13 +61,20 @@ function MainSite() {
               <About />
               
               <Store 
-                sectionId="templates" 
-                title={language === 'en' ? 'Digital Templates' : 'ڈیجیٹل ٹیمپلیٹس'} 
-                subTitle={language === 'en' ? 'High-performance website architectures for portfolios, businesses, and landing pages.' : 'پورٹ فولیوز اور کاروبار کے لیے اعلیٰ کارکردگی والے ویب سائٹ ڈیزائن۔'}
+                sectionId="saas" 
+                title={t('store.templates.title')} 
+                subTitle={t('store.templates.subtitle')}
                 filterCategory="template"
               />
 
               <BenefitSection />
+
+              <Store 
+                sectionId="cards" 
+                title={t('store.cards.title')} 
+                subTitle={t('store.cards.subtitle')}
+                filterCategory="card"
+              />
 
               <AffiliateSection />
               <FeedbackSection />
@@ -70,6 +83,7 @@ function MainSite() {
               <Contact />
             </main>
             <Footer />
+            <WhatsAppButton />
           </motion.div>
         )}
       </AnimatePresence>
@@ -88,6 +102,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<MainSite />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
           </Routes>

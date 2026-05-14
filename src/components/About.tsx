@@ -11,33 +11,22 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-6">
         <div className={`grid lg:grid-cols-2 gap-16 md:gap-24 items-center ${language === 'ur' ? 'lg:flex-row-reverse' : ''}`}>
           <div className="relative order-2 lg:order-1 flex justify-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="relative z-10 w-full max-w-md aspect-[4/5]"
-            >
+            <div className="relative z-10 w-full max-w-md aspect-[4/5]">
               <div className="absolute inset-0 border-2 border-brand-purple translate-x-6 translate-y-6 -z-10" />
               <img 
-                src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2670&auto=format&fit=crop" 
-                alt="Visionary Workspace" 
-                className="w-full h-full object-cover shadow-2xl transition-all duration-700 border border-slate-100"
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" 
+                alt={language === 'en' ? "Visionary Workspace" : "وژنری ورک اسپیس"}
+                className="w-full h-full object-cover shadow-2xl border border-slate-100"
                 loading="lazy"
               />
               <div className="absolute bottom-6 right-6 bg-brand-purple text-white p-6 shadow-xl translate-x-12 translate-y-6">
                 <Heart size={32} fill="currentColor" />
               </div>
-            </motion.div>
+            </div>
           </div>
  
           <div className={`${language === 'ur' ? 'text-right' : ''} order-1 lg:order-2`}>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true }}
-            >
+            <div>
               <div className={`text-[10px] font-black uppercase tracking-[0.6em] text-brand-purple mb-8 md:mb-10 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>{t('about.tag')}</div>
               <h2 className={`text-3xl sm:text-4xl md:text-7xl font-serif italic text-slate-950 mb-8 md:mb-12 leading-tight tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal text-4xl sm:text-5xl md:text-7xl' : ''}`}>{t('about.title')}</h2>
               <p className={`text-slate-500 text-lg mb-10 md:mb-16 font-light leading-relaxed max-w-xl ${language === 'ur' ? 'font-urdu' : ''}`}>
@@ -65,7 +54,7 @@ export default function About() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

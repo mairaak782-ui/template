@@ -30,12 +30,12 @@ export default function Blog() {
         <div className={`flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24 ${language === 'ur' ? 'md:flex-row-reverse text-right' : ''}`}>
           <div className="max-w-2xl">
             <div className={`text-[10px] font-black uppercase tracking-[0.6em] text-brand-gold mb-6 ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>
-              {language === 'en' ? 'Strategic Journal' : 'تزویراتی جرنل'}
+              {t('blog.all')}
             </div>
             <h2 className={`text-5xl md:text-7xl font-serif italic text-slate-950 mb-10 font-medium tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>
-              {language === 'en' ? 'Insights ' : 'بصیرت '}
+              {t('blog.title')}
               <span className="not-italic font-sans font-black uppercase text-brand-purple">
-                {language === 'en' ? '& Education.' : 'اور تعلیم۔'}
+                {t('blog.title.bold')}
               </span>
             </h2>
           </div>
@@ -56,33 +56,18 @@ export default function Blog() {
           </div>
         </div>
 
-        <div className="relative min-h-[650px] md:min-h-[500px] perspective-2000">
-          <AnimatePresence mode="wait">
+        <div className="relative min-h-[650px] md:min-h-[500px]">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={index}
-              initial={{ 
-                opacity: 0, 
-                rotateY: language === 'ur' ? -90 : 90, 
-                x: language === 'ur' ? -100 : 100,
-                scale: 0.8
-              }}
-              animate={{ 
-                opacity: 1, 
-                rotateY: 0, 
-                x: 0,
-                scale: 1
-              }}
-              exit={{ 
-                opacity: 0, 
-                rotateY: language === 'ur' ? 90 : -90, 
-                x: language === 'ur' ? 100 : -100,
-                scale: 0.8
-              }}
+              initial={{ opacity: 0, x: language === 'ur' ? 100 : 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: language === 'ur' ? -100 : -100 }}
               transition={{ 
-                duration: 0.7, 
-                ease: [0.4, 0, 0.2, 1] 
+                duration: 0.6, 
+                ease: [0.16, 1, 0.3, 1] 
               }}
-              style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', willChange: 'transform, opacity' }}
+              style={{ willChange: 'transform, opacity' }}
               className="absolute inset-0"
             >
               <Link to={`/blog/${post.id}`} className="group h-full">
@@ -102,7 +87,7 @@ export default function Blog() {
                   
                   <div className={language === 'ur' ? 'text-right' : ''}>
                     <div className={`text-[10px] font-black uppercase tracking-[0.4em] text-brand-gold mb-8 flex items-center gap-4 ${language === 'ur' ? 'flex-row-reverse' : ''}`}>
-                      <span className="px-4 py-1.5 bg-brand-gold/10 rounded-full">{post.category}</span>
+                      <span className="px-4 py-1.5 bg-brand-gold/5 border border-brand-gold/10 rounded-full">{post.category}</span>
                       <span className="text-slate-400 font-light italic tracking-normal normal-case">{post.date}</span>
                     </div>
 
@@ -123,7 +108,7 @@ export default function Blog() {
                         whileHover={{ x: language === 'ur' ? -10 : 10 }}
                         className={`text-sm uppercase font-black tracking-widest text-brand-purple flex items-center gap-3 ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}
                       >
-                        {language === 'en' ? 'Read Full Insights' : 'مکمل معلومات پڑھیں'} 
+                        {t('blog.read')} 
                         <ArrowRight size={18} className={language === 'ur' ? 'rotate-180' : ''} />
                       </motion.div>
                     </div>

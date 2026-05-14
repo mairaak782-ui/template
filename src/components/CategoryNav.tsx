@@ -7,7 +7,7 @@ export default function CategoryNav() {
 
   const categories = [
     {
-      id: 'templates',
+      id: 'saas',
       name: t('cat.templates'),
       description: t('cat.templates.desc'),
       icon: <Layout className="text-white" size={24} />,
@@ -33,45 +33,48 @@ export default function CategoryNav() {
   ];
 
   return (
-    <section className="py-16 md:py-32 bg-transparent relative z-10 overflow-hidden">
+    <section className="py-20 md:py-40 bg-white relative z-10">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-stretch">
-          {categories.map((cat, idx) => (
-            <motion.a
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className={`${language === 'ur' ? 'text-right md:order-2' : ''}`}>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-purple mb-4">{t('cat.nav.tag')}</p>
+            <h2 className={`text-4xl md:text-6xl font-serif italic text-slate-950 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>{t('cat.nav.title')}</h2>
+          </div>
+          <p className={`text-slate-400 text-sm max-w-sm mb-2 ${language === 'ur' ? 'text-right md:order-1 font-urdu' : ''}`}>
+            {t('cat.nav.desc')}
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {categories.map((cat) => (
+            <a
               key={cat.id}
               href={`#${cat.id}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.8 }}
-              className="flex-1 group relative overflow-hidden rounded-[4rem] border border-slate-100 shadow-2xl shadow-slate-200/50 bg-white"
+              className="group relative h-[450px] overflow-hidden rounded-[2.5rem] bg-white border border-slate-100 shadow-sm"
             >
-              <div className="h-full min-h-[400px] md:min-h-[500px] relative overflow-hidden p-8 md:p-10 flex flex-col">
-                <div className="absolute inset-0">
-                  <img 
-                    src={cat.image} 
-                    alt={cat.name}
-                    className="w-full h-full object-cover transition-all duration-[2s] group-hover:scale-110"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-b from-transparent via-white/10 to-white/95" />
+              <div className="absolute inset-0">
+                <img 
+                  src={cat.image} 
+                  alt={cat.name}
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-linear-to-b from-transparent via-slate-950/20 to-slate-950/80" />
+              </div>
+              
+              <div className={`absolute inset-0 p-10 flex flex-col justify-end ${language === 'ur' ? 'text-right items-end' : 'items-start'}`}>
+                <div className={`${cat.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-black/20 text-white`}>
+                  {cat.icon}
                 </div>
+                <h3 className={`text-4xl font-serif italic text-white mb-2 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>{cat.name}</h3>
+                <p className={`text-white/70 text-[10px] font-black uppercase tracking-[0.3em] mb-8 ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{cat.description}</p>
                 
-                <div className={`relative z-10 mt-auto ${language === 'ur' ? 'text-right items-end' : 'items-start'} flex flex-col`}>
-                  <div className={`${cat.color} w-16 h-16 rounded-3xl flex items-center justify-center mb-8 shadow-xl border border-white/20 group-hover:scale-110 transition-transform duration-500`}>
-                    {cat.icon}
-                  </div>
-                  <h3 className={`text-3xl md:text-4xl font-serif italic text-slate-950 mb-3 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}>{cat.name}</h3>
-                  <p className={`text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] mb-10 leading-loose ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{cat.description}</p>
-                  
-                  <div className={`flex items-center gap-3 text-brand-purple font-black text-[10px] uppercase tracking-widest ${language === 'ur' ? 'flex-row-reverse font-urdu' : ''}`}>
-                    <div className="h-[2px] w-8 bg-brand-purple/30 group-hover:w-16 transition-all duration-700" />
-                    {language === 'en' ? 'OPEN COLLECTION' : 'کلکشن کھولیں'}
-                  </div>
+                <div className={`flex items-center gap-2 text-brand-gold font-black text-[10px] uppercase tracking-widest ${language === 'ur' ? 'flex-row-reverse font-urdu' : ''}`}>
+                  <span>{language === 'en' ? 'OPEN COLLECTION' : 'کلکشن کھولیں'}</span>
+                  <ArrowUpRight size={16} />
                 </div>
               </div>
-            </motion.a>
+            </a>
           ))}
         </div>
       </div>

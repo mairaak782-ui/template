@@ -57,26 +57,28 @@ export default function Store({ filterCategory, sectionId, title, subTitle }: { 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              style={{ willChange: 'opacity, transform' }}
               className={`text-[10px] font-black uppercase tracking-[0.6em] text-brand-gold mb-6 ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}
             >
-              {sectionId === 'cards' ? (language === 'en' ? 'Exclusive Artisans' : 'خاص ڈیزائنز') : t('store.tag')}
+              {sectionId === 'cards' ? t('store.artisans') : t('store.tag')}
             </motion.div>
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              style={{ willChange: 'opacity, transform' }}
               transition={{ delay: 0.1 }}
               className={`text-3xl sm:text-4xl md:text-7xl font-serif italic text-slate-950 leading-tight tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
             >
               {title || t('store.title')}
             </motion.h2>
             <p className={`text-slate-500 text-base md:text-lg font-light mt-8 max-w-xl leading-relaxed ${language === 'ur' ? 'font-urdu' : ''}`}>
-              {subTitle || (language === 'en' ? "Precision-built systems and aesthetic components for high-performance builders." : "اعلیٰ کارکردگی والے بلڈرز کے لیے انتہائی درستگی کے ساتھ بنائے گئے نظام۔")}
+              {subTitle || t('store.precision')}
             </p>
           </div>
-          <div className="flex flex-col items-end gap-3 md:translate-y-[-10px]">
+          <div className={`flex flex-col items-end gap-3 md:translate-y-[-10px] ${language === 'ur' ? 'items-start' : 'items-end'}`}>
             <span className={`text-[10px] uppercase font-black text-slate-400 tracking-[0.4em] ${language === 'ur' ? 'tracking-normal font-urdu' : ''}`}>
-              {language === 'en' ? 'Available Now' : 'ابھی دستیاب ہے'}
+              {t('store.avail')}
             </span>
             <div className="flex gap-2">
               <div className="h-1.5 w-16 bg-brand-gold rounded-full" />
@@ -95,19 +97,32 @@ export default function Store({ filterCategory, sectionId, title, subTitle }: { 
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: idx * 0.05 }}
+                transition={{ duration: 0.6, delay: Math.min(idx * 0.05, 0.3) }}
                 viewport={{ once: true, margin: "-50px" }}
-                className={`flex flex-col h-full overflow-hidden border border-slate-100 bg-white hover:border-brand-gold/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] 
+                style={{ willChange: 'opacity, transform' }}
+                className={`flex flex-col h-full overflow-hidden border border-slate-100 bg-white hover:border-brand-gold/20 transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] 
                   rounded-[2rem] 
                   ${sectionId === 'cards' && idx % 3 === 0 ? 'md:flex-row' : ''}`}
               >
                 <div className={`relative overflow-hidden transition-all duration-1000 ${sectionId === 'cards' && idx % 3 === 0 ? 'aspect-[16/9] md:aspect-auto md:w-1/2' : 'aspect-[4/5]'}`}>
-                  <img 
-                    src={product.image} 
-                    alt={product.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                    loading="lazy"
-                  />
+                  {product.mediaType === 'video' ? (
+                    <video 
+                      src={product.video} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline
+                      poster={product.image}
+                    />
+                  ) : (
+                    <img 
+                      src={product.image} 
+                      alt={product.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                      loading="lazy"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-linear-to-t from-black/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   {product.badge && (
                     <div className="absolute top-6 left-6 md:top-8 md:left-8 bg-white/90 backdrop-blur-md text-slate-900 text-[9px] font-black uppercase tracking-[0.3em] px-5 py-2.5 rounded-full shadow-xl">

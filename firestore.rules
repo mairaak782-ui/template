@@ -11,36 +11,68 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function isValidProduct(data) {
-      return data.title is string && data.title.size() <= 200 &&
-             data.description is string && data.description.size() <= 2000 &&
-             data.price is number &&
-             data.category is string &&
-             data.image is string && data.image.size() <= 1000;
+    function isAdmin() {
+      // For this app, we consider the owner email as admin
+      return isSignedIn() && (
+        request.auth.token.email == 'mairaak782@gmail.com' && request.auth.token.email_verified == true
+      );
     }
 
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Validation for submissions
+    function isValidSubmission(data) {
+      return data.keys().hasAll(['email', 'createdAt']) &&
+             data.keys().size() <= 10 &&
+             data.email is string && data.email.matches('^[^@]+@[^@]+\\.[^@]+$') &&
+             data.createdAt == request.time &&
+             (data.get('name', '') is string && data.get('name', '').size() <= 100) &&
+             (data.get('whatsapp', '') is string && data.get('whatsapp', '').size() <= 30) &&
+             (data.get('message', '') is string && data.get('message', '').size() <= 5000) &&
+             (data.get('type', 'contact') in ['contact', 'lead', 'order', 'newsletter']);
+    }
+
+    // Validation for products
+    function isValidProduct(data) {
+      return data.keys().hasAll(['title', 'description', 'price', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+             data.description is string && data.description.size() <= 5000 &&
+             data.price is number &&
+             data.createdAt == request.time;
+    }
+
+    // Validation for feedbacks
     function isValidFeedback(data) {
-      return data.userName is string && data.userName.size() <= 100 &&
-             data.category is string && data.category in ["Suggestion", "Problem", "Feature Request"] &&
-             data.message is string && data.message.size() <= 5000;
+      return data.keys().hasAll(['userName', 'message', 'createdAt']) &&
+             data.userName is string && data.userName.size() > 0 && data.userName.size() <= 100 &&
+             data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
+             data.createdAt == request.time;
+    }
+
+    match /submissions/{submissionId} {
+      allow create: if isValidId(submissionId) && isValidSubmission(incoming());
+      allow read, update, delete: if isAdmin();
     }
 
     match /products/{productId} {
-      allow read: if true;
-      allow create: if isSignedIn() && isValidProduct(request.resource.data);
-      allow update: if isSignedIn() && isValidProduct(request.resource.data);
-      allow delete: if isSignedIn();
+      allow read: if true; // Publicly readable
+      allow create, update, delete: if isAdmin();
     }
 
     match /feedbacks/{feedbackId} {
-      allow read: if isSignedIn();
-      allow create: if true; // Allow anonymous or any user to submit feedback
-      allow update, delete: if isSignedIn();
+      allow create: if isValidId(feedbackId) && isValidFeedback(incoming());
+      allow read, update, delete: if isAdmin();
     }
     
-    // Testing collection
+    // Testing collection - requirement from guidelines
     match /test/connection {
-      allow read: if true;
+      allow get: if true;
     }
   }
 }

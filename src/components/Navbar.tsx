@@ -1,12 +1,29 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, Globe, User, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../lib/LanguageContext';
+import { auth } from '../lib/firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate('/');
+  };
 
   const navLinks = [
     { name: t('nav.templates'), href: '#templates' },
@@ -31,7 +48,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className={`backdrop-blur-xl border transition-all duration-500 rounded-full px-8 py-4 flex justify-between items-center ${
+        <div className={`backdrop-blur-md border transition-all duration-500 rounded-full px-8 py-4 flex justify-between items-center ${
           scrolled ? 'bg-white/80 border-slate-200 shadow-xl' : 'bg-transparent border-transparent'
         }`}>
           <motion.a 
@@ -89,14 +106,21 @@ export default function Navbar() {
               </span>
             </button>
 
-            <motion.a 
-              href="#contact-form" 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="border border-slate-200 text-slate-900 px-8 py-3 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-brand-purple hover:text-white hover:border-brand-purple transition-all duration-300 bg-white shadow-sm"
-            >
-              {language === 'en' ? 'MEMBER LOGIN' : 'لاگ ان'}
-            </motion.a>
+            {user ? (
+              <button 
+                onClick={handleLogout}
+                className={`border border-slate-200 text-slate-900 px-8 py-3 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300 bg-white shadow-sm flex items-center gap-2 ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}
+              >
+                {language === 'en' ? 'LOGOUT' : 'لاگ آؤٹ'} <LogOut size={14} />
+              </button>
+            ) : (
+              <Link 
+                to="/login" 
+                className={`border border-slate-200 text-slate-900 px-8 py-3 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-brand-purple hover:text-white hover:border-brand-purple transition-all duration-300 bg-white shadow-sm ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}
+              >
+                {t('nav.login')}
+              </Link>
+            )}
           </div>
 
           {/* Mobile Toggle */}
@@ -123,7 +147,7 @@ export default function Navbar() {
                 <a 
                   key={link.name} 
                   href={link.href} 
-                  className={`text-lg uppercase tracking-widest font-bold text-slate-900 hover:text-brand-purple transition-colors ${language === 'ur' ? 'text-right' : ''}`}
+                  className={`text-lg uppercase tracking-widest font-bold text-slate-900 hover:text-brand-purple transition-colors ${language === 'ur' ? 'text-right font-urdu tracking-normal' : ''}`}
                   onClick={(e) => {
                     e.preventDefault();
                     setIsOpen(false);
@@ -142,22 +166,34 @@ export default function Navbar() {
                   setLanguage(language === 'en' ? 'ur' : 'en');
                   setIsOpen(false);
                 }}
-                className="flex items-center justify-between w-full bg-slate-50 px-6 py-4 rounded-xl border border-slate-100"
+                className={`flex items-center justify-between w-full bg-slate-50 px-6 py-4 rounded-xl border border-slate-100 ${language === 'ur' ? 'flex-row-reverse' : ''}`}
               >
-                <div className="flex items-center gap-3">
+                <div className={`flex items-center gap-3 ${language === 'ur' ? 'flex-row-reverse' : ''}`}>
                   <Globe size={18} className="text-brand-purple" />
-                  <span className="text-sm font-black uppercase tracking-widest">{language === 'en' ? 'Change Language' : 'زبان تبدیل کریں'}</span>
+                  <span className={`text-sm font-black uppercase tracking-widest ${language === 'ur' ? 'font-urdu tracking-normal text-right' : ''}`}>{t('nav.lang')}</span>
                 </div>
                 <span className="text-sm font-black uppercase">{language === 'en' ? 'اردو' : 'EN'}</span>
               </button>
 
-              <a 
-                href="#contact-form" 
-                className="bg-brand-purple text-white py-4 rounded-xl text-sm uppercase tracking-widest font-black text-center"
-                onClick={() => setIsOpen(false)}
-              >
-                {language === 'en' ? 'MEMBER LOGIN' : 'لاگ ان'}
-              </a>
+              {user ? (
+                <button 
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className={`bg-red-500 text-white py-4 rounded-xl text-sm uppercase tracking-widest font-black text-center ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}
+                >
+                  {language === 'en' ? 'LOGOUT' : 'لاگ آؤٹ'}
+                </button>
+              ) : (
+                <Link 
+                  to="/login" 
+                  className={`bg-brand-purple text-white py-4 rounded-xl text-sm uppercase tracking-widest font-black text-center ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {t('nav.login')}
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

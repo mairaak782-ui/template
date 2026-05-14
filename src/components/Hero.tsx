@@ -16,9 +16,9 @@ export default function Hero() {
         bold: t('hero.title1.bold')
       },
       description: t('hero.desc1'),
-      ctaPrimary: { text: t('hero.cta1'), href: '#saas', icon: <ShoppingBag size={14} /> },
+      ctaPrimary: { text: t('hero.cta1'), href: '#templates', icon: <ShoppingBag size={14} /> },
       ctaSecondary: { text: t('nav.matrimonial'), href: '#cards' },
-      bgImage: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2670&auto=format&fit=crop'
+      bgImage: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1920&auto=format&fit=crop'
     },
     {
       id: 'affiliate',
@@ -30,7 +30,7 @@ export default function Hero() {
       description: t('hero.desc2'),
       ctaPrimary: { text: t('hero.cta2'), href: '#affiliate', icon: <TrendingUp size={14} /> },
       ctaSecondary: { text: t('nav.contact'), href: '#contact' },
-      bgImage: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2672&auto=format&fit=crop'
+      bgImage: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1920&auto=format&fit=crop'
     }
   ];
 
@@ -49,26 +49,22 @@ export default function Hero() {
   const slide = slides[currentSlide];
 
   return (
-    <section id="hero" className="relative min-h-[90vh] flex items-center pt-20 pb-12 overflow-hidden bg-slate-950">
+    <section id="hero" className="relative min-h-[90vh] flex items-center pt-20 pb-12 overflow-hidden bg-white">
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={`bg-${slide.id}`}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-linear-to-b from-white via-white/40 to-white z-10" />
+          <motion.img 
+            key={slide.bgImage}
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute inset-0 z-0 pointer-events-none"
-          >
-            <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-slate-950/40 to-slate-950 z-10" />
-            <img 
-              src={slide.bgImage} 
-              alt="Hero Background" 
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-          </motion.div>
-        </AnimatePresence>
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            src={slide.bgImage} 
+            alt="Hero Background" 
+            className="w-full h-full object-cover"
+            style={{ willChange: 'opacity' }}
+            referrerPolicy="no-referrer"
+          />
+        </div>
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:60px_60px] opacity-[0.02] z-20 pointer-events-none" />
       </div>
 
@@ -91,7 +87,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className={`inline-flex items-center gap-3 px-6 py-2 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.4em] text-white mb-10 w-fit shadow-sm ${language === 'ur' ? 'flex-row-reverse tracking-normal' : ''}`}
+                className={`inline-flex items-center gap-3 px-6 py-2 bg-slate-50 border border-slate-100 rounded-full text-[10px] font-black uppercase tracking-[0.4em] text-slate-900 mb-10 w-fit shadow-sm ${language === 'ur' ? 'flex-row-reverse tracking-normal' : ''}`}
               >
                 <div className="w-2 h-2 bg-brand-purple rounded-full animate-pulse" />
                 {slide.tag}
@@ -101,10 +97,10 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className={`text-3xl sm:text-4xl md:text-6xl lg:text-[7rem] font-serif italic text-white leading-[0.95] md:leading-[0.85] mb-12 lg:mb-14 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
+                className={`text-3xl sm:text-4xl md:text-6xl lg:text-[7rem] font-serif italic text-slate-950 leading-[0.95] md:leading-[0.85] mb-12 lg:mb-14 tracking-tighter ${language === 'ur' ? 'font-urdu not-italic tracking-normal' : ''}`}
               >
                 {slide.title.serif} <br />
-                <span className="not-italic font-sans font-black uppercase text-2xl sm:text-3xl md:text-5xl lg:text-[5.5rem] block mt-6 text-white tracking-tight">
+                <span className="not-italic font-sans font-black uppercase text-2xl sm:text-3xl md:text-5xl lg:text-[5.5rem] block mt-6 text-brand-purple tracking-tight">
                   {slide.title.bold}
                 </span>
               </motion.h1>
@@ -113,7 +109,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-base md:text-lg lg:text-xl text-slate-300 mb-12 lg:mb-16 max-w-xl leading-relaxed font-light"
+                className="text-base md:text-lg lg:text-xl text-slate-600 mb-12 lg:mb-16 max-w-xl leading-relaxed font-light"
               >
                 {slide.description}
               </motion.p>
@@ -124,37 +120,37 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className={`flex flex-col sm:flex-row items-center gap-6 ${language === 'ur' ? 'sm:flex-row-reverse' : ''}`}
               >
-                <motion.a 
-                  href={slide.ctaPrimary.href} 
+                <motion.button 
                   whileHover={{ scale: 1.05, backgroundColor: "#7C3AED" }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={(e) => {
-                    if (slide.ctaPrimary.href.startsWith('#')) {
-                      e.preventDefault();
-                      document.querySelector(slide.ctaPrimary.href)?.scrollIntoView({ behavior: 'smooth' });
+                  onClick={() => {
+                    const targetId = slide.ctaPrimary.href.startsWith('#') ? slide.ctaPrimary.href.substring(1) : slide.ctaPrimary.href;
+                    const el = document.getElementById(targetId);
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="bg-brand-purple text-white px-12 py-6 rounded-full font-black uppercase text-[11px] tracking-[0.3em] transition-all hover:shadow-2xl hover:shadow-brand-purple/40 flex items-center gap-4 group"
+                  className="bg-slate-950 text-white px-12 py-6 rounded-full font-black uppercase text-[11px] tracking-[0.3em] transition-all hover:bg-brand-purple hover:shadow-2xl hover:shadow-brand-purple/40 flex items-center gap-4 group cursor-pointer"
                 >
                   <span className={language === 'ur' ? 'tracking-normal text-sm' : ''}>{slide.ctaPrimary.text}</span>
                   <span className="group-hover:translate-x-1 transition-transform">
                     {slide.ctaPrimary.icon}
                   </span>
-                </motion.a>
-                <motion.a 
-                  href={slide.ctaSecondary.href} 
-                  whileHover={{ x: 5, color: "#FFFFFF" }}
-                  onClick={(e) => {
-                    if (slide.ctaSecondary.href.startsWith('#')) {
-                      e.preventDefault();
-                      document.querySelector(slide.ctaSecondary.href)?.scrollIntoView({ behavior: 'smooth' });
+                </motion.button>
+                <motion.button 
+                  whileHover={{ x: 5, color: "#1e293b" }}
+                  onClick={() => {
+                    const targetId = slide.ctaSecondary.href.startsWith('#') ? slide.ctaSecondary.href.substring(1) : slide.ctaSecondary.href;
+                    const el = document.getElementById(targetId);
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="px-10 py-6 rounded-full font-black uppercase text-[11px] tracking-[0.3em] border border-white/20 hover:border-white transition-all text-slate-400 flex items-center gap-3 group"
+                  className="px-10 py-6 rounded-full font-black uppercase text-[11px] tracking-[0.3em] border border-slate-200 hover:border-slate-950 transition-all text-slate-600 flex items-center gap-3 group cursor-pointer"
                 >
                   <span className={language === 'ur' ? 'tracking-normal text-sm' : ''}>{slide.ctaSecondary.text}</span>
                   <ArrowRight size={14} className={`group-hover:translate-x-1 transition-transform ${language === 'ur' ? 'rotate-180' : ''}`} />
-                </motion.a>
+                </motion.button>
               </motion.div>
             </motion.div>
           </AnimatePresence>
@@ -190,19 +186,29 @@ export default function Hero() {
                 <div className="relative z-10 w-full h-full flex items-center justify-center p-12">
                   {slide.id === 'templates' ? (
                     <div className="grid grid-cols-2 gap-6 w-full h-full">
-                      <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity }} className="bg-white border border-slate-100 rounded-xl shadow-xl p-6 flex flex-col justify-between">
+                      <motion.div 
+                        animate={{ y: [0, -8, 0] }} 
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} 
+                        className="bg-white border border-slate-100 rounded-xl shadow-xl p-6 flex flex-col justify-between"
+                        style={{ willChange: 'transform' }}
+                      >
                         <Layout className="text-brand-purple" size={24} />
                         <div className="space-y-4">
                           <div className="w-full h-2 bg-slate-100 rounded-full" />
                           <div className="w-2/3 h-2 bg-slate-100 rounded-full" />
                         </div>
                       </motion.div>
-                      <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 7, repeat: Infinity, delay: 0.5 }} className="bg-white border border-slate-100 rounded-xl shadow-xl p-6 flex items-center justify-center">
+                      <motion.div 
+                        animate={{ y: [0, 8, 0] }} 
+                        transition={{ duration: 7, repeat: Infinity, delay: 0.5, ease: "easeInOut" }} 
+                        className="bg-white border border-slate-100 rounded-xl shadow-xl p-6 flex items-center justify-center"
+                        style={{ willChange: 'transform' }}
+                      >
                         <CreditCard className="text-brand-purple" size={40} />
                       </motion.div>
                       <motion.div className="col-span-2 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-6 flex flex-col gap-4">
                         <div className="flex justify-between items-center">
-                          <div className="text-[10px] text-slate-500 uppercase font-black tracking-widest">Protocol Active</div>
+                          <div className={`text-[10px] text-slate-500 uppercase font-black tracking-widest ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{t('hero.visual.protocol')}</div>
                           <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]" />
                         </div>
                         <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -212,8 +218,8 @@ export default function Hero() {
                     </div>
                   ) : (
                     <div className="w-full h-full flex flex-col gap-6">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-xs uppercase font-black tracking-[0.2em] text-slate-900">Store Front</div>
+                      <div className={`flex items-center justify-between mb-2 ${language === 'ur' ? 'flex-row-reverse' : ''}`}>
+                        <div className={`text-xs uppercase font-black tracking-[0.2em] text-slate-900 ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{t('hero.visual.storefront')}</div>
                         <div className="flex gap-2 text-slate-300">
                           <div className="w-2 h-2 bg-slate-200 rounded-full" />
                           <div className="w-2 h-2 bg-slate-200 rounded-full" />
@@ -223,14 +229,14 @@ export default function Hero() {
                       <div className="grid grid-cols-2 gap-6 flex-1">
                         <motion.div 
                           whileHover={{ y: -10 }}
-                          className="bg-white border border-slate-100 p-6 rounded-xl shadow-xl flex flex-col gap-4"
+                          className={`bg-white border border-slate-100 p-6 rounded-xl shadow-xl flex flex-col gap-4 ${language === 'ur' ? 'text-right' : ''}`}
                         >
                           <div className="aspect-square bg-slate-50 rounded-lg flex items-center justify-center">
                             <ShoppingBag className="text-brand-gold/30" size={32} />
                           </div>
                           <div className="h-2 w-full bg-slate-100 rounded-full" />
                           <div className="h-2 w-1/2 bg-slate-100 rounded-full" />
-                          <div className="mt-auto pt-4 border-t border-slate-50 flex justify-between">
+                          <div className={`mt-auto pt-4 border-t border-slate-50 flex justify-between ${language === 'ur' ? 'flex-row-reverse' : ''}`}>
                             <div className="h-4 w-10 bg-brand-gold/20 rounded-full" />
                             <div className="h-4 w-4 bg-slate-100 rounded-full" />
                           </div>
@@ -242,10 +248,10 @@ export default function Hero() {
                           transition={{ delay: 0.5 }}
                           className="flex flex-col gap-6"
                         >
-                          <div className="bg-slate-900 p-6 rounded-xl shadow-2xl flex flex-col gap-3">
-                            <div className="flex justify-between items-center">
+                          <div className={`bg-slate-900 p-6 rounded-xl shadow-2xl flex flex-col gap-3 ${language === 'ur' ? 'text-right' : ''}`}>
+                            <div className={`flex justify-between items-center ${language === 'ur' ? 'flex-row-reverse' : ''}`}>
                               <Zap className="text-brand-purple" size={16} />
-                              <div className="text-[8px] text-brand-purple font-bold uppercase tracking-widest">Live</div>
+                              <div className={`text-[8px] text-brand-purple font-bold uppercase tracking-widest ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{t('hero.visual.live')}</div>
                             </div>
                             <div className="text-2xl font-serif italic text-white">$2,480</div>
                             <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
@@ -256,23 +262,23 @@ export default function Hero() {
                               />
                             </div>
                           </div>
-                          <div className="bg-white border border-slate-100 p-6 rounded-xl shadow-xl flex-1 flex flex-col justify-center gap-2">
-                             <div className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Inventory</div>
-                             <div className="text-xl font-sans font-black flex items-end gap-2">
+                          <div className={`bg-white border border-slate-100 p-6 rounded-xl shadow-xl flex-1 flex flex-col justify-center gap-2 ${language === 'ur' ? 'text-right' : ''}`}>
+                             <div className={`text-[10px] text-slate-400 uppercase font-black tracking-widest ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{t('hero.visual.inventory')}</div>
+                             <div className={`text-xl font-sans font-black flex items-end gap-2 ${language === 'ur' ? 'flex-row-reverse justify-start' : ''}`}>
                                942 <span className="text-[10px] text-green-500 font-bold mb-1 ml-1">+12</span>
                              </div>
                           </div>
                         </motion.div>
                       </div>
 
-                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center justify-between">
+                      <div className={`bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center justify-between ${language === 'ur' ? 'flex-row-reverse' : ''}`}>
                         <div className="flex -space-x-2">
                           {[1,2,3].map(i => (
                             <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200" />
                           ))}
                           <div className="w-8 h-8 rounded-full border-2 border-white bg-brand-gold flex items-center justify-center text-[8px] text-white font-bold">+8</div>
                         </div>
-                        <div className="text-[9px] uppercase font-bold tracking-widest text-slate-400">Order Nexus Active</div>
+                        <div className={`text-[9px] uppercase font-bold tracking-widest text-slate-400 ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{t('hero.visual.ordernexus')}</div>
                       </div>
                     </div>
                   )}
@@ -281,10 +287,10 @@ export default function Hero() {
                 <motion.div 
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute top-12 -right-8 bg-white border border-slate-100 py-3 px-6 rounded-sm shadow-2xl border-l-brand-gold border-l-2"
+                  className={`absolute top-12 -right-8 bg-white border border-slate-100 py-3 px-6 rounded-sm shadow-2xl border-l-brand-gold border-l-2 ${language === 'ur' ? '-right-auto -left-8 border-l-0 border-r-brand-gold border-r-2 text-right' : ''}`}
                 >
-                  <div className="text-xl font-bold text-brand-gold">{slide.id === 'assets' ? 'System' : 'Nexus'}</div>
-                  <div className="text-[6px] text-slate-400 font-bold uppercase tracking-[0.4em]">Integrated</div>
+                  <div className={`text-xl font-bold text-brand-gold ${language === 'ur' ? 'font-urdu' : ''}`}>{slide.id === 'assets' ? t('hero.visual.integrated') : t('hero.visual.nexus')}</div>
+                  <div className={`text-[6px] text-slate-400 font-bold uppercase tracking-[0.4em] ${language === 'ur' ? 'font-urdu tracking-normal' : ''}`}>{t('hero.visual.integrated')}</div>
                 </motion.div>
               </div>
             </motion.div>

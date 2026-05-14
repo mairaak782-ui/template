@@ -51,7 +51,7 @@ export const products: Product[] = [
   },
   {
     id: 'saas-1',
-    title: 'ForgeCRM SaaS App',
+    title: 'SimpleCRM SaaS App',
     description: 'Full-stack CRM application for managing digital asset sales and customer relations.',
     price: 129,
     category: 'saas',
@@ -147,7 +147,7 @@ export const blogPosts: BlogPost[] = [
     date: 'May 05, 2026',
     author: 'Maira (CEO)',
     category: 'Innovation',
-    image: 'https://images.unsplash.com/photo-1454165833069-b1950e67e2d1?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
     content: 'Full article content for scaling SaaS empires...'
   }
 ];

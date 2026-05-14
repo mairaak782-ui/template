@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, getDocFromServer } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 // Safety check for deployment environments
@@ -13,6 +13,24 @@ if (!hasConfig) {
 const app = hasConfig ? initializeApp(firebaseConfig) : null;
 export const db = (app && hasConfig) ? getFirestore(app, (firebaseConfig as any).firestoreDatabaseId) : null as any;
 export const auth = app ? getAuth(app) : null as any;
+
+// Connection test
+export async function testConnection() {
+  if (!db) return;
+  try {
+    const docRef = doc(db, 'test', 'connection');
+    await getDocFromServer(docRef);
+    console.log("Firebase connection established successfully.");
+  } catch (error: any) {
+    if (error.message?.includes('offline') || error.code === 'unavailable') {
+      console.error("Firebase connection failed: Client is offline or Firestore is unreachable.");
+    } else {
+      console.error("Firebase connection info:", error.message);
+    }
+  }
+}
+
+testConnection();
 
 export enum OperationType {
   CREATE = 'create',
