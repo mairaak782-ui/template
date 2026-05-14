@@ -12,7 +12,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    type: t('contact.opt1'),
+    type: 'contact',
     message: ''
   });
 
@@ -23,14 +23,19 @@ export default function Contact() {
     try {
       if (!db) throw new Error("Database connection failed");
       
-      await addDoc(collection(db, 'submissions'), {
-        ...formData,
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        type: formData.type,
+        message: formData.message,
         createdAt: serverTimestamp(),
         source: 'contact_form'
-      });
+      };
+
+      await addDoc(collection(db, 'submissions'), payload);
 
       setIsSuccess(true);
-      setFormData({ name: '', email: '', type: t('contact.opt1'), message: '' });
+      setFormData({ name: '', email: '', type: 'contact', message: '' });
     } catch (error) {
       handleFirestoreError(error, OperationType.WRITE, 'submissions');
     } finally {
